@@ -1,3 +1,7 @@
 
 *.lock
 .vs/ProjectCRYPT/v15/Server/sqlite3/storage.ide
+/ProjectCRYPT/bin
+/ProjectCRYPT/obj
+.vs/ProjectCRYPT/v15/Server/sqlite3/storage.ide-shm
+.vs/ProjectCRYPT/v15/Server/sqlite3/storage.ide-wal
