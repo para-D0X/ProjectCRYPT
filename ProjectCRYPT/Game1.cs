@@ -79,9 +79,10 @@ namespace ProjectCRYPT
             map = Content.Load<TiledMap>("crypttestmap");
             mapRenderer = new TiledMapRenderer(GraphicsDevice);
 
+
             foreach (TiledMapTileLayer layer in map.TileLayers)
             {
-                if (layer.Name == "Collisions") ;
+                if (layer.Name == "Collisions");
                 collisionLayer = layer;
             }
 
@@ -102,7 +103,9 @@ namespace ProjectCRYPT
             player.Update(deltaTime);
 
             //camera.Move(new Vector2(0, -50) * deltaTime);
-            camera.Zoom = 1f;
+            camera.Zoom = 3f;
+
+            camera.Position = player.Position - new Vector2(ScreenWidth / 2, ScreenHeight / 2);
 
             base.Update(gameTime);
         }
