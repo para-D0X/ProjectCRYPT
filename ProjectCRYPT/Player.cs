@@ -107,8 +107,12 @@ namespace ProjectCRYPT
                 velocity.Y = 0;
             }
 
+            // tx = Game.PixelToTile();
 
         }
+
+
+
 
         public void Draw(SpriteBatch spriteBatch)
         {
