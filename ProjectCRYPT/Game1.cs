@@ -18,6 +18,7 @@ namespace ProjectCRYPT
         SpriteBatch spriteBatch;
 
         Player player = null;
+        Zombie zombie = null;
 
         Camera2D camera = null;
         TiledMap map = null;
@@ -59,7 +60,7 @@ namespace ProjectCRYPT
 
         protected override void Initialize()
         {
-
+            zombie = new Zombie(this);
             player = new Player(this);
             base.Initialize();
         }
@@ -69,6 +70,7 @@ namespace ProjectCRYPT
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player.Load(Content);
+            zombie.Load(Content);
 
             BoxingViewportAdapter viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice,  
                 ScreenWidth, ScreenHeight);
@@ -101,6 +103,7 @@ namespace ProjectCRYPT
 
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             player.Update(deltaTime);
+            zombie.Update(deltaTime);
 
             //camera.Move(new Vector2(0, -50) * deltaTime);
             camera.Zoom = 3f;
@@ -122,6 +125,7 @@ namespace ProjectCRYPT
 
             mapRenderer.Draw(map, ref viewMatrix, ref projectionMatrix);
             player.Draw(spriteBatch);
+            zombie.Draw(spriteBatch);
 
             spriteBatch.End();
 

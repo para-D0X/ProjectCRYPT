@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/crypttestmap.tmx</SourceFile>
-  <SourceTime>2018-05-29T22:30:48.267843+10:00</SourceTime>
-  <DestFile>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/bin/Windows/crypttestmap.xnb</DestFile>
-  <DestTime>2018-05-30T18:32:12.0017701+10:00</DestTime>
+  <SourceFile>C:/Users/James C/Documents/Visual Studio 2017/games/ProjectCRYPT-master/ProjectCrypt/ProjectCRYPT/Content/crypttestmap.tmx</SourceFile>
+  <SourceTime>2018-05-30T20:25:53.2305414+10:00</SourceTime>
+  <DestFile>C:/Users/James C/Documents/Visual Studio 2017/games/ProjectCRYPT-master/ProjectCrypt/ProjectCRYPT/Content/bin/Windows/crypttestmap.xnb</DestFile>
+  <DestTime>2018-05-31T21:08:30.6893401+10:00</DestTime>
   <Importer>TiledMapImporter</Importer>
-  <ImporterTime>2018-05-23T11:26:24+10:00</ImporterTime>
+  <ImporterTime>2018-05-30T19:19:06.2689768+10:00</ImporterTime>
   <Processor>TiledMapProcessor</Processor>
-  <ProcessorTime>2018-05-23T11:26:24+10:00</ProcessorTime>
+  <ProcessorTime>2018-05-30T19:19:06.2689768+10:00</ProcessorTime>
   <Dependencies />
   <BuildAsset />
   <BuildOutput />

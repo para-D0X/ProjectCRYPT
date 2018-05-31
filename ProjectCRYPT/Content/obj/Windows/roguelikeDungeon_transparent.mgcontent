@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/roguelikeDungeon_transparent.png</SourceFile>
-  <SourceTime>2015-06-23T23:00:56.2656441+10:00</SourceTime>
-  <DestFile>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/bin/Windows/roguelikeDungeon_transparent.xnb</DestFile>
-  <DestTime>2018-05-29T21:43:13.7500371+10:00</DestTime>
+  <SourceFile>C:/Users/James C/Documents/Visual Studio 2017/games/ProjectCRYPT-master/ProjectCrypt/ProjectCRYPT/Content/roguelikeDungeon_transparent.png</SourceFile>
+  <SourceTime>2018-05-30T20:25:53.2335481+10:00</SourceTime>
+  <DestFile>C:/Users/James C/Documents/Visual Studio 2017/games/ProjectCRYPT-master/ProjectCrypt/ProjectCRYPT/Content/bin/Windows/roguelikeDungeon_transparent.xnb</DestFile>
+  <DestTime>2018-05-31T21:08:30.7791778+10:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-02T02:05:36+11:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
