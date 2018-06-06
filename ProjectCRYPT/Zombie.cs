@@ -35,12 +35,12 @@ namespace ProjectCRYPT
         
         public void Load(ContentManager content)
         {
-            zombieSprite.Load(content, "zombie");
+
         }
 
         public void Update(float deltaTime)
         {
-            zombieSprite.Update(deltaTime);
+            //zombieSprite.Update(deltaTime);
             UpdateInput(deltaTime);
         }
 
@@ -51,7 +51,7 @@ namespace ProjectCRYPT
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            zombieSprite.Draw(spriteBatch);
+            //zombieSprite.Draw(spriteBatch);
         }
     }
 }

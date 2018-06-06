@@ -12,13 +12,29 @@ namespace ProjectCRYPT
 {
     class Player
     {
-        Sprite playerSprite = new Sprite();
-        Sprite crosshair = new Sprite();
-
         Game1 game = null;
 
         Vector2 velocity = Vector2.Zero;
         Vector2 position = Vector2.Zero;
+
+        Texture2D playerTexture = null;
+        Texture2D crosshairTexture = null;
+
+        Sprite playerSprite = new Sprite();
+        Sprite crosshair = new Sprite();
+
+       
+
+        AnimatedTexture playerAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
+        //AnimatedTexture crosshairAnimation = 
+        //(playerTexture.Width / 2, playerTexture.Height / 2)
+
+        float Deg2Rad(float Deg)
+        {
+            float Rad = Deg;
+            Rad = Rad * (float)Math.PI / 180f;
+            return Rad;
+        }
 
         public Vector2 Position
         {
@@ -37,8 +53,13 @@ namespace ProjectCRYPT
 
         public void Load(ContentManager content)
         {
-            playerSprite.Load(content, "player2");
-            crosshair.Load(content, "crosshair");
+            //playerSprite.Load(content, "player2");
+            //crosshair.Load(content, "crosshair");
+            playerTexture = content.Load<Texture2D>("player2");
+            playerAnimation.Load(content, "player2", 1, 1);
+            playerAnimation.Origin = new Vector2(playerTexture.Width / 2, playerTexture.Height / 2);
+            playerSprite.Add(playerAnimation, 0, 0);
+            playerSprite.Pause();
         }
 
         public void Update(float deltaTime)
@@ -119,7 +140,7 @@ namespace ProjectCRYPT
         public void Draw(SpriteBatch spriteBatch)
         {
             playerSprite.Draw(spriteBatch);
-            crosshair.Draw(spriteBatch);
+            //crosshair.Draw(spriteBatch);
         }
 
 
