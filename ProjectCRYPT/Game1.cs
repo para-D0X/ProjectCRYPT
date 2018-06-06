@@ -12,13 +12,13 @@ using MonoGame.Extended.ViewportAdapters;
 namespace ProjectCRYPT
 {
 
-    public class Game1 : Game
+    public class Game1 : Game 
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         Player player = null;
-        //Zombie zombie = null;
+        Zombie zombie = null;
 
         Camera2D camera = null;
         TiledMap map = null;
@@ -67,7 +67,7 @@ namespace ProjectCRYPT
 
         protected override void Initialize()
         {
-            //zombie = new Zombie(this);
+            zombie = new Zombie(this);
             player = new Player(this);
             base.Initialize();
             this.IsMouseVisible = true;
@@ -78,7 +78,7 @@ namespace ProjectCRYPT
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player.Load(Content);
-           //zombie.Load(Content);
+            zombie.Load(Content);
 
             BoxingViewportAdapter viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice,  
                 ScreenWidth, ScreenHeight);
@@ -112,7 +112,7 @@ namespace ProjectCRYPT
 
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             player.Update(deltaTime);
-            //zombie.Update(deltaTime);
+            zombie.Update(deltaTime);
 
             MouseState mouse = Mouse.GetState();
 
@@ -130,7 +130,7 @@ namespace ProjectCRYPT
 
             base.Update(gameTime);
         }
-
+        
 
         protected override void Draw(GameTime gameTime)
         {
@@ -143,7 +143,7 @@ namespace ProjectCRYPT
 
             mapRenderer.Draw(map, ref viewMatrix, ref projectionMatrix);
             player.Draw(spriteBatch);
-            //zombie.Draw(spriteBatch);
+            zombie.Draw(spriteBatch);
 
             spriteBatch.End();
 

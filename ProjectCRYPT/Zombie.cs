@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ProjectCRYPT
 {
-    class Zombie
+    class Zombie 
     {
 
         Sprite zombieSprite = new Sprite();
@@ -18,6 +18,10 @@ namespace ProjectCRYPT
         Game1 game = null;
 
         Vector2 position = Vector2.Zero;
+
+        Texture2D zombie;
+
+        AnimatedTexture zombieAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
 
         public Vector2 Position
         {
@@ -35,12 +39,19 @@ namespace ProjectCRYPT
         
         public void Load(ContentManager content)
         {
+            zombie = content.Load<Texture2D>("zombie");
 
+            zombieAnimation.Load(content, "zombie", 1, 1);
+
+            zombieAnimation.Origin = new Vector2(zombie.Width / 2, zombie.Height / 2);
+
+            zombieSprite.Add(zombieAnimation, 0, 0);
+            zombieSprite.Pause(); 
         }
 
         public void Update(float deltaTime)
         {
-            //zombieSprite.Update(deltaTime);
+            zombieSprite.Update(deltaTime);
             UpdateInput(deltaTime);
         }
 
@@ -51,7 +62,7 @@ namespace ProjectCRYPT
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //zombieSprite.Draw(spriteBatch);
+            zombieSprite.Draw(spriteBatch); 
         }
     }
 }
