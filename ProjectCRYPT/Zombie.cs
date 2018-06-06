@@ -18,7 +18,12 @@ namespace ProjectCRYPT
         Game1 game = null;
 
         Vector2 position = Vector2.Zero;
+        Vector2 velocity = Vector2.Zero;
 
+        public Player GetPlayer { get; set; }
+
+
+        
         Texture2D zombie;
 
         AnimatedTexture zombieAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
@@ -28,6 +33,10 @@ namespace ProjectCRYPT
             get
             {
                 return zombieSprite.position;
+            }
+            set
+            {
+                zombieSprite.position = value;
             }
         }
 
@@ -53,11 +62,22 @@ namespace ProjectCRYPT
         {
             zombieSprite.Update(deltaTime);
             UpdateInput(deltaTime);
+
+            
         }
 
         private void UpdateInput(float deltaTime)
         {
 
+            Vector2 direction;
+
+            direction = GetPlayer.Position - Position;
+            direction.Normalize();
+
+
+            velocity = direction * (Game1.maxVelocity * deltaTime);
+
+            zombieSprite.position += velocity * deltaTime;
         }
 
         public void Draw(SpriteBatch spriteBatch)
