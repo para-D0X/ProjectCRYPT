@@ -13,6 +13,7 @@ namespace ProjectCRYPT
     class Player
     {
         Sprite playerSprite = new Sprite();
+        Sprite crosshair = new Sprite();
 
         Game1 game = null;
 
@@ -36,7 +37,8 @@ namespace ProjectCRYPT
 
         public void Load(ContentManager content)
         {
-            playerSprite.Load(content, "tempPlayer");
+            playerSprite.Load(content, "player2");
+            crosshair.Load(content, "crosshair");
         }
 
         public void Update(float deltaTime)
@@ -117,6 +119,7 @@ namespace ProjectCRYPT
         public void Draw(SpriteBatch spriteBatch)
         {
             playerSprite.Draw(spriteBatch);
+            crosshair.Draw(spriteBatch);
         }
 
 

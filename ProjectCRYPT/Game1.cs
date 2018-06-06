@@ -25,13 +25,18 @@ namespace ProjectCRYPT
         TiledMapRenderer mapRenderer = null;
         TiledMapTileLayer collisionLayer;
 
+        SpriteFont arial;
+
+
+
         public static int tile = 16;
         public static float meter = tile;
-        public static Vector2 maxVelocity = new Vector2(meter * 10, meter * 10);
-        public static float xAcceleration = maxVelocity.X * 4;
-        public static float yAcceleration = maxVelocity.Y * 4;
+        public static Vector2 maxVelocity = new Vector2(meter * 7, meter * 7);
+        public static float xAcceleration = maxVelocity.X * 5;
+        public static float yAcceleration = maxVelocity.Y * 5;
         public static float xFriction = maxVelocity.X * 6;
         public static float yFriction = maxVelocity.Y * 6;
+
 
         public int ScreenWidth
         {
@@ -63,6 +68,7 @@ namespace ProjectCRYPT
             zombie = new Zombie(this);
             player = new Player(this);
             base.Initialize();
+            this.IsMouseVisible = true;
         }
 
 
@@ -78,9 +84,10 @@ namespace ProjectCRYPT
             camera = new Camera2D(viewportAdapter);
             camera.Position = new Vector2(-100, -100);
 
-            map = Content.Load<TiledMap>("crypttestmap");
+            map = Content.Load<TiledMap>("cryptoverworld");
             mapRenderer = new TiledMapRenderer(GraphicsDevice);
 
+            arial = Content.Load<SpriteFont>("Arial");
 
             foreach (TiledMapTileLayer layer in map.TileLayers)
             {
@@ -105,8 +112,15 @@ namespace ProjectCRYPT
             player.Update(deltaTime);
             zombie.Update(deltaTime);
 
+            MouseState mouse = Mouse.GetState();
+
+            int mouseX = mouse.X;
+            int mouseY = mouse.Y;
+
+            Vector2 mousePosition = new Vector2(mouse.X, mouse.Y);
+
             //camera.Move(new Vector2(0, -50) * deltaTime);
-            camera.Zoom = 3f;
+            camera.Zoom = 4f;
 
             camera.Position = player.Position - new Vector2(ScreenWidth / 2, ScreenHeight / 2);
 
@@ -121,7 +135,9 @@ namespace ProjectCRYPT
             var viewMatrix = camera.GetViewMatrix();
             var projectionMatrix = Matrix.CreateOrthographicOffCenter(0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, 0, 0f, -1f);
 
-            spriteBatch.Begin(transformMatrix : viewMatrix);
+            spriteBatch.Begin(transformMatrix : viewMatrix, samplerState : SamplerState.PointClamp);
+
+            //spriteBatch.DrawString(arial, mouse.X.ToString(), new Vector2(120, 20), Color.DarkOliveGreen);
 
             mapRenderer.Draw(map, ref viewMatrix, ref projectionMatrix);
             player.Draw(spriteBatch);
