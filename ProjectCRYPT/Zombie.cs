@@ -22,7 +22,7 @@ namespace ProjectCRYPT
 
         public Player GetPlayer { get; set; }
 
-
+        float zombieSpeed = 25f;
         
         Texture2D zombie;
 
@@ -77,7 +77,7 @@ namespace ProjectCRYPT
 
             velocity = direction * (Game1.maxVelocity * deltaTime);
 
-            zombieSprite.position += velocity * deltaTime;
+            zombieSprite.position += velocity * zombieSpeed * deltaTime;
         }
 
         public void Draw(SpriteBatch spriteBatch)
