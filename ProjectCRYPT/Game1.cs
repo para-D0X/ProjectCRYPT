@@ -68,7 +68,11 @@ namespace ProjectCRYPT
         protected override void Initialize()
         {
             zombie = new Zombie(this);
+            zombie.Position = new Vector2(100, 0);
+
             player = new Player(this);
+            player.Position = new Vector2(0, 0);
+
             base.Initialize();
             this.IsMouseVisible = true;
         }
@@ -79,6 +83,7 @@ namespace ProjectCRYPT
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player.Load(Content);
             zombie.Load(Content);
+            zombie.GetPlayer = player;
 
             BoxingViewportAdapter viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice,  
                 ScreenWidth, ScreenHeight);
@@ -104,6 +109,7 @@ namespace ProjectCRYPT
 
         }
 
+        
 
         protected override void Update(GameTime gameTime)
         {
@@ -128,6 +134,7 @@ namespace ProjectCRYPT
 
             Console.WriteLine(mousePosition);
 
+            
             base.Update(gameTime);
         }
         

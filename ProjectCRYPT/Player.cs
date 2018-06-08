@@ -42,6 +42,10 @@ namespace ProjectCRYPT
             {
                 return playerSprite.position;
             }
+            set
+            {
+                playerSprite.position = value;
+            }
         }
 
         public Player(Game1 game)
