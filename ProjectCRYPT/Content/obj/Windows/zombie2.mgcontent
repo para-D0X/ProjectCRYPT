@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/tempPlayer.png</SourceFile>
-  <SourceTime>2017-02-08T01:02:13+11:00</SourceTime>
-  <DestFile>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/bin/Windows/tempPlayer.xnb</DestFile>
-  <DestTime>2018-06-06T20:14:15.373018+10:00</DestTime>
+  <SourceFile>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/zombie2.png</SourceFile>
+  <SourceTime>2018-06-08T19:14:28.3884401+10:00</SourceTime>
+  <DestFile>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/bin/Windows/zombie2.xnb</DestFile>
+  <DestTime>2018-06-08T19:15:09.9770774+10:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-02T02:05:36+11:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

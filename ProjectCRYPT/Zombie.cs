@@ -39,9 +39,9 @@ namespace ProjectCRYPT
         
         public void Load(ContentManager content)
         {
-            zombie = content.Load<Texture2D>("zombie");
+            zombie = content.Load<Texture2D>("zombie2");
 
-            zombieAnimation.Load(content, "zombie", 1, 1);
+            zombieAnimation.Load(content, "zombie2", 1, 1);
 
             zombieAnimation.Origin = new Vector2(zombie.Width / 2, zombie.Height / 2);
 
