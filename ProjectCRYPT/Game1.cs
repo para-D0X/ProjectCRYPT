@@ -28,9 +28,6 @@ namespace ProjectCRYPT
         SpriteFont arial;
 
 
-
-
-
         public static int tile = 16;
         public static float meter = tile;
         public static Vector2 maxVelocity = new Vector2(meter * 7, meter * 7);
@@ -75,6 +72,7 @@ namespace ProjectCRYPT
 
             base.Initialize();
             this.IsMouseVisible = true;
+
         }
 
 
