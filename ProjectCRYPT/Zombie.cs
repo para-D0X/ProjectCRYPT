@@ -12,11 +12,13 @@ namespace ProjectCRYPT
 {
     class Zombie 
     {
-
+        GraphicsDeviceManager graphics;
         Sprite zombieSprite = new Sprite();
+        
 
         Game1 game = null;
 
+        
         Vector2 position = Vector2.Zero;
         Vector2 velocity = Vector2.Zero;
 
@@ -43,7 +45,7 @@ namespace ProjectCRYPT
         public Zombie(Game1 game)
         {
             this.game = game;
-            position = Vector2.Zero;
+            Position = new Vector2(100,0);
         }
         
         public void Load(ContentManager content)
@@ -67,22 +69,27 @@ namespace ProjectCRYPT
         }
 
         private void UpdateInput(float deltaTime)
-        {
+        {                                                         
+              Vector2 direction;
 
-            Vector2 direction;
+              direction = GetPlayer.Position - Position;
+              direction.Normalize();
 
-            direction = GetPlayer.Position - Position;
-            direction.Normalize();
+              velocity = direction * (Game1.maxVelocity * deltaTime);
+                             
+              zombieSprite.position += velocity * zombieSpeed * deltaTime;
+                
+            
 
-
-            velocity = direction * (Game1.maxVelocity * deltaTime);
-
-            zombieSprite.position += velocity * zombieSpeed * deltaTime;
+            
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            zombieSprite.Draw(spriteBatch); 
+                      
+            zombieSprite.Draw(spriteBatch);
+                
+            
         }
     }
 }
