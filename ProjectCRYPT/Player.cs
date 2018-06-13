@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using ParticleEffects;
 
 namespace ProjectCRYPT
 {
@@ -16,18 +17,21 @@ namespace ProjectCRYPT
 
         Vector2 velocity = Vector2.Zero;
         Vector2 position = Vector2.Zero;
+        float rotation = 0f;
 
         Texture2D playerTexture = null;
         Texture2D crosshairTexture = null;
 
         Sprite playerSprite = new Sprite();
         Sprite crosshair = new Sprite();
+        
+       /* Emitter dustEmitter = null;
+        Texture2D dustParticle = null;
+        Vector2 emitterOffset = new Vector2(8, 8); */
 
-       
 
         AnimatedTexture playerAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
-        //AnimatedTexture crosshairAnimation = 
-        //(playerTexture.Width / 2, playerTexture.Height / 2)
+        AnimatedTexture crosshairAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
 
         float Deg2Rad(float Deg)
         {
@@ -57,17 +61,33 @@ namespace ProjectCRYPT
 
         public void Load(ContentManager content)
         {
-            playerTexture = content.Load<Texture2D>("player2");
-            playerAnimation.Load(content, "player2", 1, 1);
+            playerTexture = content.Load<Texture2D>("player");
+            playerAnimation.Load(content, "player", 1, 1);
             playerAnimation.Origin = new Vector2(playerTexture.Width / 2, playerTexture.Height / 2);
             playerSprite.Add(playerAnimation, 0, 0);
             playerSprite.Pause();
+
+            crosshairTexture = content.Load<Texture2D>("crosshair");
+            crosshairAnimation.Load(content, "crosshair", 1, 1);
+            crosshairAnimation.Origin = new Vector2(crosshairTexture.Width / 2, crosshairTexture.Height / 2);
+            crosshair.Add(crosshairAnimation, 0, 0);
+            crosshair.Pause();
+
+            //dustParticle = content.Load<Texture2D>("dust");
+            //dustEmitter = new Emitter(dustEmitter, playerSprite.position);
         }
 
         public void Update(float deltaTime)
         {
             playerSprite.Update(deltaTime);
             UpdateInput(deltaTime);
+
+            crosshair.position = game.MousePos;
+
+            Vector2 direction = game.MousePos - playerSprite.position;
+
+            rotation = (float)Math.Atan2(direction.X, direction.Y);
+            playerAnimation.Rotation = -rotation;
         }
 
         private void UpdateInput(float deltaTime)
@@ -142,7 +162,7 @@ namespace ProjectCRYPT
         public void Draw(SpriteBatch spriteBatch)
         {
             playerSprite.Draw(spriteBatch);
-            //crosshair.Draw(spriteBatch);
+            crosshair.Draw(spriteBatch);
         }
 
 
