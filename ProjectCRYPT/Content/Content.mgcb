@@ -26,18 +26,6 @@
 /processorParam:TextureFormat=Color
 /build:tempPlayer.png
 
-#begin zombie.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:zombie.png
-
 #begin crosshair.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -66,18 +54,6 @@
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
 /build:cryptoverworld.tmx
-
-#begin player.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:player.png
 
 #begin Arial.spritefont
 /importer:FontDescriptionImporter

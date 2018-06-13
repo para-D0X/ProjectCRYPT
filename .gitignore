@@ -8,3 +8,8 @@
 .vs/ProjectCRYPT/v15/.suo
 .vs/ProjectCRYPT/v15/.suo
 .vs/ProjectCRYPT/v15/.suo
+bin/
+obj/
+.vs/
+*.mgcontent
+*.mgcontent
