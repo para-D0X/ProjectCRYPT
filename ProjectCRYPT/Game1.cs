@@ -125,7 +125,6 @@ namespace ProjectCRYPT
 
             Vector2 mousePosition = new Vector2(mouse.X, mouse.Y);
 
-            //camera.Move(new Vector2(0, -50) * deltaTime);
             camera.Zoom = 4f;
 
             camera.Position = player.Position - new Vector2(ScreenWidth / 2, ScreenHeight / 2);
@@ -139,7 +138,7 @@ namespace ProjectCRYPT
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             var viewMatrix = camera.GetViewMatrix();
             var projectionMatrix = Matrix.CreateOrthographicOffCenter(0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, 0, 0f, -1f);

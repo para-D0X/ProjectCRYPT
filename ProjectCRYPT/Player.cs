@@ -57,8 +57,6 @@ namespace ProjectCRYPT
 
         public void Load(ContentManager content)
         {
-            //playerSprite.Load(content, "player2");
-            //crosshair.Load(content, "crosshair");
             playerTexture = content.Load<Texture2D>("player2");
             playerAnimation.Load(content, "player2", 1, 1);
             playerAnimation.Origin = new Vector2(playerTexture.Width / 2, playerTexture.Height / 2);
