@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/crosshair.png</SourceFile>
-  <SourceTime>2018-06-13T20:29:13.8729361+10:00</SourceTime>
-  <DestFile>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/bin/Windows/crosshair.xnb</DestFile>
-  <DestTime>2018-06-13T20:29:48.1506446+10:00</DestTime>
+  <SourceFile>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/player.png</SourceFile>
+  <SourceTime>2018-06-13T20:23:29.0165902+10:00</SourceTime>
+  <DestFile>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/bin/Windows/player.xnb</DestFile>
+  <DestTime>2018-06-13T20:23:39.5272115+10:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-02T02:05:36+11:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

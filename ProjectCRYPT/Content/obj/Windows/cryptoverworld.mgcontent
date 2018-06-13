@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/cryptoverworld.tmx</SourceFile>
-  <SourceTime>2018-06-13T19:02:18.7091568+10:00</SourceTime>
+  <SourceTime>2018-06-13T20:33:22.3126736+10:00</SourceTime>
   <DestFile>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/bin/Windows/cryptoverworld.xnb</DestFile>
-  <DestTime>2018-06-13T19:02:31.5118098+10:00</DestTime>
+  <DestTime>2018-06-13T20:37:23.9085955+10:00</DestTime>
   <Importer>TiledMapImporter</Importer>
   <ImporterTime>2018-05-23T11:26:24+10:00</ImporterTime>
   <Processor>TiledMapProcessor</Processor>

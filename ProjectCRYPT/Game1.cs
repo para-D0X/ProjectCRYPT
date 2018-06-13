@@ -7,6 +7,7 @@ using MonoGame.Extended;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Graphics;
 using MonoGame.Extended.ViewportAdapters;
+using Krypton.Lights;
 
 
 namespace ProjectCRYPT
@@ -27,6 +28,10 @@ namespace ProjectCRYPT
 
         SpriteFont arial;
 
+        MouseState mouse = Mouse.GetState();
+
+        Vector2 mousePosition = Vector2.Zero;
+
 
         public static int tile = 16;
         public static float meter = tile;
@@ -35,7 +40,6 @@ namespace ProjectCRYPT
         public static float yAcceleration = maxVelocity.Y * 5;
         public static float xFriction = maxVelocity.X * 6;
         public static float yFriction = maxVelocity.Y * 6;
-
 
         public int ScreenWidth
         {
@@ -53,6 +57,13 @@ namespace ProjectCRYPT
             }
         }
 
+        public Vector2 MousePos
+        {
+            get
+            {
+                return camera.ScreenToWorld(mousePosition);
+            }
+        }
 
         public Game1()
         {
@@ -118,23 +129,21 @@ namespace ProjectCRYPT
             player.Update(deltaTime);
             zombie.Update(deltaTime);
 
-            MouseState mouse = Mouse.GetState();
 
-            int mouseX = mouse.X;
-            int mouseY = mouse.Y;
 
-            Vector2 mousePosition = new Vector2(mouse.X, mouse.Y);
-
-            camera.Zoom = 4f;
+            camera.Zoom = 3f;
 
             camera.Position = player.Position - new Vector2(ScreenWidth / 2, ScreenHeight / 2);
 
+
+            mouse = Mouse.GetState();
+            mousePosition = new Vector2(mouse.X, mouse.Y);
+
             Console.WriteLine(mousePosition);
 
-            
             base.Update(gameTime);
-        }
-        
+        }      
+
 
         protected override void Draw(GameTime gameTime)
         {

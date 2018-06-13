@@ -51,6 +51,9 @@
     <Compile Include="Zombie.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Krypton, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\packages\Krypton.2.0.0.0\lib\net40-Client\Krypton.dll</HintPath>
+    </Reference>
     <Reference Include="MonoGame.Extended, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MonoGame.Extended.1.1.0\lib\portable-net45+win8+wpa81\MonoGame.Extended.dll</HintPath>
     </Reference>
