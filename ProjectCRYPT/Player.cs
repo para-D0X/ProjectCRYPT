@@ -21,6 +21,10 @@ namespace ProjectCRYPT
 
         Texture2D playerTexture = null;
         Texture2D crosshairTexture = null;
+        Texture2D fireballTexture = null;
+
+
+        List<Fireball> fireballs = new List<Fireball>();
 
         Sprite playerSprite = new Sprite();
         Sprite crosshair = new Sprite();
@@ -73,6 +77,10 @@ namespace ProjectCRYPT
             crosshair.Add(crosshairAnimation, 0, 0);
             crosshair.Pause();
 
+            fireballTexture = (content.Load<Texture2D>("fireball"));
+
+            //fireballTexture = content.Load<Texture2D>("fireball");
+
             //dustParticle = content.Load<Texture2D>("dust");
             //dustEmitter = new Emitter(dustEmitter, playerSprite.position);
         }
@@ -81,6 +89,7 @@ namespace ProjectCRYPT
         {
             playerSprite.Update(deltaTime);
             UpdateInput(deltaTime);
+            //UpdateFireball(deltaTime);
 
             crosshair.position = game.MousePos;
 
@@ -88,6 +97,48 @@ namespace ProjectCRYPT
 
             rotation = (float)Math.Atan2(direction.X, direction.Y);
             playerAnimation.Rotation = -rotation;
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                Cast();
+            }
+
+            UpdateFireballs();
+        }
+
+        public void UpdateFireballs()
+        {
+            foreach (Fireball fireball in fireballs)
+            {
+                fireball.position += fireball.velocity;
+                if (Vector2.Distance(fireball.position, playerSprite.position) > 500)
+                {
+                    fireball.isAlive = false;
+                }
+            }
+            for (int i = 0; i < fireballs.Count; i++)
+            {
+                if (!fireballs[i].isAlive)
+                {
+                    fireballs.RemoveAt(i);
+                    i--;
+                }
+
+            }
+        }
+
+        public void Cast()
+        {
+            Fireball newFireball = new Fireball(fireballTexture);
+            newFireball.velocity = new Vector2((float)Math.Cos(-rotation + 90), (float)Math.Sin(-rotation + 90)) * 5f + velocity;
+            newFireball.velocity.Normalize();
+            newFireball.position = playerSprite.position + newFireball.velocity * 5;
+            newFireball.isAlive = true;
+
+            if (fireballs.Count() < 200)
+            {
+                fireballs.Add(newFireball);
+            }
         }
 
         private void UpdateInput(float deltaTime)
@@ -163,6 +214,11 @@ namespace ProjectCRYPT
         {
             playerSprite.Draw(spriteBatch);
             crosshair.Draw(spriteBatch);
+
+            foreach(Fireball fireball in fireballs)
+            {
+                fireball.Draw(spriteBatch);
+            }
         }
 
 

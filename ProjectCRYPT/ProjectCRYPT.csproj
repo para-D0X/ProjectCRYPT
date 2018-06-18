@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AnimatedTexture.cs" />
+    <Compile Include="Fireball.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="ParticleSystem.cs" />
     <Compile Include="Player.cs" />
