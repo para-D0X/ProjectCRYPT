@@ -4,7 +4,6 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-<<<<<<< HEAD
     <File>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/roguelikeSheet_transparent.png</File>
     <File>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/cryptoverworld.tmx</File>
     <File>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/Arial.spritefont</File>
@@ -13,16 +12,5 @@
     <File>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/dust.png</File>
     <File>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/player.png</File>
     <File>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/crosshair.png</File>
-=======
-    <File>C:/Users/James C/Documents/Visual Studio 2017/games/ProjectCRYPT-master/ProjectCrypt/ProjectCRYPT/Content/tempPlayer.png</File>
-    <File>C:/Users/James C/Documents/Visual Studio 2017/games/ProjectCRYPT-master/ProjectCrypt/ProjectCRYPT/Content/zombie.png</File>
-    <File>C:/Users/James C/Documents/Visual Studio 2017/games/ProjectCRYPT-master/ProjectCrypt/ProjectCRYPT/Content/crosshair.png</File>
-    <File>C:/Users/James C/Documents/Visual Studio 2017/games/ProjectCRYPT-master/ProjectCrypt/ProjectCRYPT/Content/roguelikeSheet_transparent.png</File>
-    <File>C:/Users/James C/Documents/Visual Studio 2017/games/ProjectCRYPT-master/ProjectCrypt/ProjectCRYPT/Content/cryptoverworld.tmx</File>
-    <File>C:/Users/James C/Documents/Visual Studio 2017/games/ProjectCRYPT-master/ProjectCrypt/ProjectCRYPT/Content/player.png</File>
-    <File>C:/Users/James C/Documents/Visual Studio 2017/games/ProjectCRYPT-master/ProjectCrypt/ProjectCRYPT/Content/Arial.spritefont</File>
-    <File>C:/Users/James C/Documents/Visual Studio 2017/games/ProjectCRYPT-master/ProjectCrypt/ProjectCRYPT/Content/player2.png</File>
-    <File>C:/Users/James C/Documents/Visual Studio 2017/games/ProjectCRYPT-master/ProjectCrypt/ProjectCRYPT/Content/zombie2.png</File>
->>>>>>> e3680ef0b73d9b9d7a32755eba0d991340d0349a
   </SourceFiles>
 </SourceFileCollection>

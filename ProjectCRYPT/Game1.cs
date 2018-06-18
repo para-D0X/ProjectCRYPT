@@ -7,7 +7,6 @@ using MonoGame.Extended;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Graphics;
 using MonoGame.Extended.ViewportAdapters;
-using Krypton.Lights;
 
 
 namespace ProjectCRYPT
@@ -69,8 +68,6 @@ namespace ProjectCRYPT
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
-
         }
 
         protected override void Initialize()
