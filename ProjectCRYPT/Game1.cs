@@ -7,11 +7,8 @@ using MonoGame.Extended;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Graphics;
 using MonoGame.Extended.ViewportAdapters;
-<<<<<<< HEAD
-using System.Collections.Generic;
-=======
-using Krypton.Lights;
->>>>>>> 137647518085c3af11425998a511f279e4ef19a6
+using System.Collections.Generic; 
+
 
 
 namespace ProjectCRYPT
