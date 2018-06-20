@@ -79,8 +79,6 @@ namespace ProjectCRYPT
 
             fireballTexture = (content.Load<Texture2D>("fireball"));
 
-            //fireballTexture = content.Load<Texture2D>("fireball");
-
             //dustParticle = content.Load<Texture2D>("dust");
             //dustEmitter = new Emitter(dustEmitter, playerSprite.position);
         }
@@ -89,7 +87,6 @@ namespace ProjectCRYPT
         {
             playerSprite.Update(deltaTime);
             UpdateInput(deltaTime);
-            //UpdateFireball(deltaTime);
 
             crosshair.position = game.MousePos;
 
@@ -130,9 +127,9 @@ namespace ProjectCRYPT
         public void Cast()
         {
             Fireball newFireball = new Fireball(fireballTexture);
-            newFireball.velocity = new Vector2((float)Math.Cos(-rotation + 90), (float)Math.Sin(-rotation + 90)) * 5f + velocity;
-            newFireball.velocity.Normalize();
-            newFireball.position = playerSprite.position + newFireball.velocity * 5;
+            newFireball.velocity = new Vector2((float)Math.Cos(-rotation + 1.5708f), (float)Math.Sin(-rotation + 1.5708f)) * 2f ;
+            //newFireball.velocity.Normalize();
+            newFireball.position = playerSprite.position + newFireball.velocity * 5 ;
             newFireball.isAlive = true;
 
             if (fireballs.Count() < 200)

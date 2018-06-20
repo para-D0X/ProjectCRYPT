@@ -16,7 +16,7 @@ namespace ProjectCRYPT
 
         public Vector2 position;
         public Vector2 velocity;
-        public Vector2 origin;
+        public Vector2 origin = new Vector2(8, 8);
 
         public bool isAlive;
 
