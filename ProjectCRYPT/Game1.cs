@@ -8,6 +8,7 @@ using MonoGame.Extended;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Graphics;
 using MonoGame.Extended.ViewportAdapters;
+using System.Collections.Generic; 
 
 
 namespace ProjectCRYPT
@@ -19,7 +20,9 @@ namespace ProjectCRYPT
         SpriteBatch spriteBatch;
 
         Player player = null;
-        Zombie zombie = null;
+        //Zombie zombie = null;
+
+        List<Zombie> zombies = new List<Zombie>();
 
         Camera2D camera = null;
         TiledMap map = null;
@@ -75,8 +78,8 @@ namespace ProjectCRYPT
 
         protected override void Initialize()
         {
-            zombie = new Zombie(this);
-            zombie.Position = new Vector2(100, 0);
+            //zombie = new Zombie(this);
+            //zombie.Position = new Vector2(100, 0);
 
             player = new Player(this);
             player.Position = new Vector2(0, 0);
@@ -91,8 +94,8 @@ namespace ProjectCRYPT
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player.Load(Content);
-            zombie.Load(Content);
-            zombie.GetPlayer = player;
+            //zombie.Load(Content);
+            //zombie.GetPlayer = player;
 
             BoxingViewportAdapter viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice,  
                 ScreenWidth, ScreenHeight);
@@ -109,6 +112,20 @@ namespace ProjectCRYPT
             {
                 if (layer.Name == "Collisions");
                 collisionLayer = layer;
+            }
+            foreach(TiledMapObjectLayer layer in map.ObjectLayers)
+            {
+                if(layer.Name == "Zombies")
+                {
+                    foreach(TiledMapObject obj in layer.Objects)
+                    {
+                        Zombie zombie = new Zombie(this);
+                        zombie.Load(Content);
+                        zombie.GetPlayer = player;
+                        zombie.Position = new Vector2(obj.Position.X, obj.Position.Y);
+                        zombies.Add(zombie);
+                    }
+                }
             }
 
         }
@@ -127,7 +144,12 @@ namespace ProjectCRYPT
 
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             player.Update(deltaTime);
-            zombie.Update(deltaTime);
+            
+
+            foreach(Zombie zombie in zombies)
+            {
+                zombie.Update(deltaTime);
+            }
 
 
 
@@ -158,7 +180,12 @@ namespace ProjectCRYPT
 
             mapRenderer.Draw(map, ref viewMatrix, ref projectionMatrix);
             player.Draw(spriteBatch);
-            zombie.Draw(spriteBatch);
+            
+
+            foreach (Zombie zombie in zombies)
+            {
+                zombie.Draw(spriteBatch);
+            }
 
             spriteBatch.End();
 

@@ -57,7 +57,10 @@ namespace ProjectCRYPT
             zombieAnimation.Origin = new Vector2(zombie.Width / 2, zombie.Height / 2);
 
             zombieSprite.Add(zombieAnimation, 0, 0);
-            zombieSprite.Pause(); 
+            zombieSprite.Pause();
+
+            
+
         }
 
         public void Update(float deltaTime)
@@ -69,15 +72,16 @@ namespace ProjectCRYPT
         }
 
         private void UpdateInput(float deltaTime)
-        {                                                         
-              Vector2 direction;
+        {
+            
+            Vector2 direction;
 
-              direction = GetPlayer.Position - Position;
-              direction.Normalize();
+            direction = GetPlayer.Position - Position;
+            direction.Normalize();
 
-              velocity = direction * (Game1.maxVelocity * deltaTime);
+            velocity = direction * (Game1.maxVelocity * deltaTime);
                              
-              zombieSprite.position += velocity * zombieSpeed * deltaTime;
+            zombieSprite.position += velocity * zombieSpeed * deltaTime;
                 
             
 
@@ -85,11 +89,8 @@ namespace ProjectCRYPT
         }
 
         public void Draw(SpriteBatch spriteBatch)
-        {
-                      
-            zombieSprite.Draw(spriteBatch);
-                
-            
+        {          
+            zombieSprite.Draw(spriteBatch);         
         }
     }
 }
