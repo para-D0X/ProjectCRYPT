@@ -8,7 +8,7 @@ using MonoGame.Extended;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Graphics;
 using MonoGame.Extended.ViewportAdapters;
-using System.Collections.Generic; 
+ 
 
 
 namespace ProjectCRYPT
@@ -180,7 +180,8 @@ namespace ProjectCRYPT
 
             mapRenderer.Draw(map, ref viewMatrix, ref projectionMatrix);
             player.Draw(spriteBatch);
-            
+            //spriteBatch.DrawRectangle(player.Bounds, Color.Red, 1);
+
 
             foreach (Zombie zombie in zombies)
             {
@@ -205,26 +206,59 @@ namespace ProjectCRYPT
         public int CellAtPixelCoord(Vector2 pixelCoords)
         {
             if (pixelCoords.X < 0 || pixelCoords.X > map.WidthInPixels || pixelCoords.Y < 0)
+            {
                 return 1;
+            }
 
             if (pixelCoords.Y > map.HeightInPixels)
+            {
                 return 0;
+            }
+                
             return CellAtTileCoord(PixelToTile(pixelCoords.X), PixelToTile(pixelCoords.Y));
+
+        }
+
+        private void CheckCollsions()
+        {
 
         }
 
         public int CellAtTileCoord(int tx, int ty)
         {
             if (tx < 0 || tx >= map.Width || ty < 0)
+            {
                 return 1;
+            }
+                
 
             if (ty >= map.Height)
+            {
                 return 0;
+            }
+                
 
             TiledMapTile? tile;
             collisionLayer.TryGetTile(tx, ty, out tile);
             return tile.Value.GlobalIdentifier;
 
         }
+
+       /* public bool IsColliding(Rectangle rect1, Rectangle rect2)
+        {
+            if (rect1.X + rect1.Width < rect2.X ||
+                rect1.X > rect2.X + rect2.Width ||
+                rect1.Y + rect1.Height < rect2.Y ||
+                rect1.Y > rect2.Y + rect2.Height)
+            {
+                // these two rectangles are not colliding
+                return false;
+            }
+            else
+            {
+                // else, the two AABB rectangles overlap, therefore collision
+                return true;
+            }
+        }*/
     }
 }
