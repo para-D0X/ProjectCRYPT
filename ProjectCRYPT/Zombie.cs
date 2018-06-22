@@ -73,13 +73,13 @@ namespace ProjectCRYPT
         {
             zombieSprite.Update(deltaTime);
             UpdateInput(deltaTime);
-            
+            //CollisionDetection();
             
         }
 
         private void UpdateInput(float deltaTime)
         {
-           /* bool wasMovingLeft = velocity.X < 0;
+            /*bool wasMovingLeft = velocity.X < 0;
             bool wasMovingRight = velocity.X > 0;
             bool wasMovingUp = velocity.Y < 0;
             bool wasMovingDown = velocity.Y > 0;*/
@@ -91,7 +91,7 @@ namespace ProjectCRYPT
 
             velocity = direction * (Game1.maxVelocity * deltaTime);
 
-           // velocity.X = MathHelper.Clamp(velocity.X, -Game1.maxVelocity.X, Game1.maxVelocity.X);
+            //velocity.X = MathHelper.Clamp(velocity.X, -Game1.maxVelocity.X, Game1.maxVelocity.X);
            // velocity.Y = MathHelper.Clamp(velocity.Y, -Game1.maxVelocity.Y, Game1.maxVelocity.Y);
 
             zombieSprite.position += velocity * zombieSpeed * deltaTime;
@@ -110,7 +110,7 @@ namespace ProjectCRYPT
 
         }
 
-        /*void CollisionDetection()
+       /* void CollisionDetection()
         {
             //Console.WriteLine("IS RUNNING?");
             // collision detection

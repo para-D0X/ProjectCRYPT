@@ -151,7 +151,7 @@ namespace ProjectCRYPT
                 zombie.Update(deltaTime);
             }
 
-
+            //CheckCollsions();
 
             camera.Zoom = 3f;
 
@@ -213,14 +213,8 @@ namespace ProjectCRYPT
             if (pixelCoords.Y > map.HeightInPixels)
             {
                 return 0;
-            }
-                
+            } 
             return CellAtTileCoord(PixelToTile(pixelCoords.X), PixelToTile(pixelCoords.Y));
-
-        }
-
-        private void CheckCollsions()
-        {
 
         }
 
@@ -243,8 +237,18 @@ namespace ProjectCRYPT
             return tile.Value.GlobalIdentifier;
 
         }
+        /*private void CheckCollsions()
+        {
+            foreach(Zombie zombie in zombies)
+            {
+                if(IsColliding(player.Bounds, zombie.Bounds) == true)
+                {
+                    
+                }
+            }
+        }
 
-       /* public bool IsColliding(Rectangle rect1, Rectangle rect2)
+        public bool IsColliding(Rectangle rect1, Rectangle rect2)
         {
             if (rect1.X + rect1.Width < rect2.X ||
                 rect1.X > rect2.X + rect2.Width ||

@@ -19,6 +19,7 @@ namespace ProjectCRYPT
         Vector2 velocity = Vector2.Zero;
         Vector2 position = Vector2.Zero;
         float rotation = 0f;
+        //bool playerIsAlive = true;
 
         Texture2D playerTexture = null;
         Texture2D crosshairTexture = null;
@@ -93,7 +94,7 @@ namespace ProjectCRYPT
         {
             playerSprite.Update(deltaTime);
             UpdateInput(deltaTime);
-            
+            //CollisionDetection();
 
             crosshair.position = game.MousePos;
 
@@ -291,8 +292,8 @@ namespace ProjectCRYPT
             // player is now falling or not. We can do that by looking to see if 
             // there is a platform below them
             //this.isFalling = !(celldown || (nx && celldiag));
-        }*/
-
+        }
+        */
 
         public void Draw(SpriteBatch spriteBatch)
         {
