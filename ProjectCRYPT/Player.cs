@@ -1,4 +1,5 @@
 ﻿using System;
+using MonoGame.Extended;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,7 @@ namespace ProjectCRYPT
         Vector2 velocity = Vector2.Zero;
         Vector2 position = Vector2.Zero;
         float rotation = 0f;
+        //bool playerIsAlive = true;
 
         Texture2D playerTexture = null;
         Texture2D crosshairTexture = null;
@@ -42,6 +44,11 @@ namespace ProjectCRYPT
             float Rad = Deg;
             Rad = Rad * (float)Math.PI / 180f;
             return Rad;
+        }
+
+        public Rectangle Bounds
+        {
+            get { return playerSprite.Bounds; }
         }
 
         public Vector2 Position
@@ -87,6 +94,7 @@ namespace ProjectCRYPT
         {
             playerSprite.Update(deltaTime);
             UpdateInput(deltaTime);
+            //CollisionDetection();
 
             crosshair.position = game.MousePos;
 
@@ -204,8 +212,88 @@ namespace ProjectCRYPT
 
         }
 
+        /*void CollisionDetection()
+        {
+            //Console.WriteLine("IS RUNNING?");
+            // collision detection
+            // Our collision detection logic is greatly simplified by the fact that 
+            // the player is a rectangle and is exactly the same size as a single tile.
+            // So we know that the player can only ever occupy 1, 2 or 4 cells.
+            // This means we can short-circuit and avoid building a general purpose 
+            // collision detection engine by simply looking at the 1 to 4 cells that 
+            // the player occupies:
+            int tx = game.PixelToTile(Position.X);
+            int ty = game.PixelToTile(Position.Y);
+            // nx = true if player overlaps right
+            bool nx = (Position.X) % Game1.tile != 0;
+            // ny = true if player overlaps below
+            bool ny = (Position.Y) % Game1.tile != 0;
+            bool cell = game.CellAtTileCoord(tx, ty) != 0;
+            bool cellright = game.CellAtTileCoord(tx + 1, ty) != 0;
+            bool celldown = game.CellAtTileCoord(tx, ty + 1) != 0;
+            bool celldiag = game.CellAtTileCoord(tx + 1, ty + 1) != 0;
 
+            //Console.WriteLine(game.CellAtTileCoord(tx + 1, ty));
 
+            // If the player has vertical velocity, then check to see if they have hit
+            // a platform below or above, in which case, stop their vertical velocity, 
+            // and clamp their y position:
+            if (this.velocity.Y > 0)
+            {
+                if ((celldown && !cell) || (celldiag && !cellright && nx))
+                {
+                    // clamp the y position to avoid falling into platform below
+                    playerSprite.position.Y = MathHelper.Lerp(playerSprite.position.Y, game.TileToPixel(ty), 0.5f);
+                    this.velocity.Y = 0;        // stop downward velocity
+                    //this.isFalling = false;     // no longer falling
+                    //this.isJumping = false;     // (or jumping)
+                    ny = false;                 // - no longer overlaps the cells below
+                }
+            }
+            else if (this.velocity.Y < 0)
+            {
+                if ((cell && !celldown) || (cellright && !celldiag && nx))
+                {
+                    // clamp the y position to avoid jumping into platform above
+                    playerSprite.position.Y = MathHelper.Lerp(playerSprite.position.Y, game.TileToPixel(ty + 1), .5f);
+                    this.velocity.Y = 0;   // stop upward velocity
+                                           // player is no longer really in that cell, we clamped them 
+                                           // to the cell below
+                    cell = celldown;
+                    cellright = celldiag;  // (ditto)
+                    ny = false;            // player no longer overlaps the cells below
+                }
+            }
+
+            if (this.velocity.X > 0)
+            {
+                if ((cellright && !cell) || (celldiag && !celldown && ny))
+                {
+                    // clamp the x position to avoid moving into the platform 
+                    // we just hit
+                    playerSprite.position.X = MathHelper.Lerp(playerSprite.position.X, game.TileToPixel(tx), .5f);
+                    this.velocity.X = 0;      // stop horizontal velocity
+                    playerSprite.Pause();
+                }
+            }
+            else if (this.velocity.X < 0)
+            {
+                if ((cell && !cellright) || (celldown && !celldiag && ny))
+                {
+                    // clamp the x position to avoid moving into the platform 
+                    // we just hit
+                    playerSprite.position.X = MathHelper.Lerp(playerSprite.position.X, game.TileToPixel(tx + 1), .5f);
+                    this.velocity.X = 0;      // stop horizontal velocity
+                    playerSprite.Pause();
+                }
+            }
+
+            // The last calculation for our update() method is to detect if the 
+            // player is now falling or not. We can do that by looking to see if 
+            // there is a platform below them
+            //this.isFalling = !(celldown || (nx && celldiag));
+        }
+        */
 
         public void Draw(SpriteBatch spriteBatch)
         {

@@ -4,13 +4,13 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/roguelikeSheet_transparent.png</File>
-    <File>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/cryptoverworld.tmx</File>
-    <File>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/Arial.spritefont</File>
-    <File>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/zombie2.png</File>
-    <File>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/fireball.png</File>
-    <File>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/dust.png</File>
-    <File>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/player.png</File>
-    <File>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/crosshair.png</File>
+    <File>C:/Users/James C/Documents/Visual Studio 2017/games/ProjectCRYPT-master/ProjectCrypt/ProjectCRYPT/Content/roguelikeSheet_transparent.png</File>
+    <File>C:/Users/James C/Documents/Visual Studio 2017/games/ProjectCRYPT-master/ProjectCrypt/ProjectCRYPT/Content/cryptoverworld.tmx</File>
+    <File>C:/Users/James C/Documents/Visual Studio 2017/games/ProjectCRYPT-master/ProjectCrypt/ProjectCRYPT/Content/Arial.spritefont</File>
+    <File>C:/Users/James C/Documents/Visual Studio 2017/games/ProjectCRYPT-master/ProjectCrypt/ProjectCRYPT/Content/zombie2.png</File>
+    <File>C:/Users/James C/Documents/Visual Studio 2017/games/ProjectCRYPT-master/ProjectCrypt/ProjectCRYPT/Content/fireball.png</File>
+    <File>C:/Users/James C/Documents/Visual Studio 2017/games/ProjectCRYPT-master/ProjectCrypt/ProjectCRYPT/Content/dust.png</File>
+    <File>C:/Users/James C/Documents/Visual Studio 2017/games/ProjectCRYPT-master/ProjectCrypt/ProjectCRYPT/Content/player.png</File>
+    <File>C:/Users/James C/Documents/Visual Studio 2017/games/ProjectCRYPT-master/ProjectCrypt/ProjectCRYPT/Content/crosshair.png</File>
   </SourceFiles>
 </SourceFileCollection>
