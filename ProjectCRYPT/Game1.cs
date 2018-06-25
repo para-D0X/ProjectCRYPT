@@ -103,7 +103,7 @@ namespace ProjectCRYPT
             camera = new Camera2D(viewportAdapter);
             camera.Position = new Vector2(-100, -100);
 
-            map = Content.Load<TiledMap>("cryptoverworld");
+            map = Content.Load<TiledMap>("dungeon1");
             mapRenderer = new TiledMapRenderer(GraphicsDevice);
 
             arial = Content.Load<SpriteFont>("Arial");
@@ -237,7 +237,7 @@ namespace ProjectCRYPT
             return tile.Value.GlobalIdentifier;
 
         }
-        /*private void CheckCollsions()
+        private void CheckCollsions()
         {
             foreach(Zombie zombie in zombies)
             {
@@ -263,6 +263,6 @@ namespace ProjectCRYPT
                 // else, the two AABB rectangles overlap, therefore collision
                 return true;
             }
-        }*/
+        }
     }
 }

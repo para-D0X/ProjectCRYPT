@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/James C/Documents/Visual Studio 2017/games/ProjectCRYPT-master/ProjectCrypt/ProjectCRYPT/Content/dust.png</SourceFile>
-  <SourceTime>2018-06-13T21:10:49.0219254+10:00</SourceTime>
-  <DestFile>C:/Users/James C/Documents/Visual Studio 2017/games/ProjectCRYPT-master/ProjectCrypt/ProjectCRYPT/Content/bin/Windows/dust.xnb</DestFile>
-  <DestTime>2018-06-21T20:37:08.0763772+10:00</DestTime>
+  <SourceFile>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/dust.png</SourceFile>
+  <SourceTime>2018-06-13T19:34:22.3697055+10:00</SourceTime>
+  <DestFile>C:/Users/owner/Desktop/Project CRYPT/ProjectCRYPT/ProjectCRYPT/Content/bin/Windows/dust.xnb</DestFile>
+  <DestTime>2018-06-25T21:13:47.3108928+10:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-02T02:05:36+11:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
