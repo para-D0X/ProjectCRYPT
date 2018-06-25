@@ -35,6 +35,8 @@ namespace ProjectCRYPT
 
         Vector2 mousePosition = Vector2.Zero;
 
+        float cameraZoomAmount = 3f;
+
 
 
 
@@ -151,9 +153,18 @@ namespace ProjectCRYPT
                 zombie.Update(deltaTime);
             }
 
+            if (Keyboard.GetState().IsKeyDown(Keys.Up) == true)
+            {
+                cameraZoomAmount += 1f * deltaTime;
+            }
 
+            if (Keyboard.GetState().IsKeyDown(Keys.Down) == true)
+            {
+                cameraZoomAmount -= 1f * deltaTime;
+            }
 
             camera.Zoom = 3f;
+            camera.Zoom = cameraZoomAmount;
 
             camera.Position = player.Position - new Vector2(ScreenWidth / 2, ScreenHeight / 2);
 
