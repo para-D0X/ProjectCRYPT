@@ -151,7 +151,7 @@ namespace ProjectCRYPT
                 zombie.Update(deltaTime);
             }
 
-            //CheckCollsions();
+
 
             camera.Zoom = 3f;
 
