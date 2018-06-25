@@ -19,7 +19,7 @@ namespace ProjectCRYPT
         Vector2 velocity = Vector2.Zero;
         Vector2 position = Vector2.Zero;
         float rotation = 0f;
-        //bool playerIsAlive = true;
+        
 
         Texture2D playerTexture = null;
         Texture2D crosshairTexture = null;
