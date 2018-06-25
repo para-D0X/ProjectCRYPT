@@ -67,7 +67,7 @@ namespace ProjectCRYPT
 
         public Rectangle Bounds
         {
-            get // ive just followed the material
+            get
             {
                 return new Rectangle(new Point((int)position.X, (int)position.Y), animations[currentAnimation].FrameSize);
             }

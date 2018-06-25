@@ -20,7 +20,6 @@ namespace ProjectCRYPT
         SpriteBatch spriteBatch;
 
         Player player = null;
-        //Zombie zombie = null;
 
         List<Zombie> zombies = new List<Zombie>();
 
@@ -78,9 +77,7 @@ namespace ProjectCRYPT
 
         protected override void Initialize()
         {
-            //zombie = new Zombie(this);
-            //zombie.Position = new Vector2(100, 0);
-
+      
             player = new Player(this);
             player.Position = new Vector2(0, 0);
 
@@ -94,8 +91,6 @@ namespace ProjectCRYPT
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player.Load(Content);
-            //zombie.Load(Content);
-            //zombie.GetPlayer = player;
 
             BoxingViewportAdapter viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice,  
                 ScreenWidth, ScreenHeight);
@@ -180,7 +175,6 @@ namespace ProjectCRYPT
 
             mapRenderer.Draw(map, ref viewMatrix, ref projectionMatrix);
             player.Draw(spriteBatch);
-            //spriteBatch.DrawRectangle(player.Bounds, Color.Red, 1);
 
 
             foreach (Zombie zombie in zombies)
@@ -237,32 +231,6 @@ namespace ProjectCRYPT
             return tile.Value.GlobalIdentifier;
 
         }
-        private void CheckCollsions()
-        {
-            foreach(Zombie zombie in zombies)
-            {
-                if(IsColliding(player.Bounds, zombie.Bounds) == true)
-                {
-                    
-                }
-            }
-        }
-
-        public bool IsColliding(Rectangle rect1, Rectangle rect2)
-        {
-            if (rect1.X + rect1.Width < rect2.X ||
-                rect1.X > rect2.X + rect2.Width ||
-                rect1.Y + rect1.Height < rect2.Y ||
-                rect1.Y > rect2.Y + rect2.Height)
-            {
-                // these two rectangles are not colliding
-                return false;
-            }
-            else
-            {
-                // else, the two AABB rectangles overlap, therefore collision
-                return true;
-            }
-        }
+       
     }
 }
