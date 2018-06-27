@@ -19,11 +19,9 @@ namespace ProjectCRYPT
 
         Game1 game = null;
 
-<<<<<<< HEAD
-        float distance = 140;
-=======
+
         float distance = 75;
->>>>>>> 1e89d02840d2cd724841a0d5f2e1f258159bc7a9
+
         Vector2 position = Vector2.Zero;
         Vector2 velocity = Vector2.Zero;
 
@@ -60,9 +58,9 @@ namespace ProjectCRYPT
         
         public void Load(ContentManager content)
         {
-            zombie = content.Load<Texture2D>("zombie2");
+            zombie = content.Load<Texture2D>("zombie");
 
-            zombieAnimation.Load(content, "zombie2", 1, 1);
+            zombieAnimation.Load(content, "zombie", 1, 1);
 
             zombieAnimation.Origin = new Vector2(zombie.Width / 2, zombie.Height / 2);
 
