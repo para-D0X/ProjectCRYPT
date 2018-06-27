@@ -19,7 +19,7 @@ namespace ProjectCRYPT
 
         Game1 game = null;
 
-        
+        float distance = 70;
         Vector2 position = Vector2.Zero;
         Vector2 velocity = Vector2.Zero;
 
@@ -84,17 +84,12 @@ namespace ProjectCRYPT
             bool wasMovingUp = velocity.Y < 0;
             bool wasMovingDown = velocity.Y > 0;*/
             
-            Vector2 direction;
-
-            direction = GetPlayer.Position - Position;
-            direction.Normalize();
-
-            velocity = direction * (Game1.maxVelocity * deltaTime);
+            
 
             //velocity.X = MathHelper.Clamp(velocity.X, -Game1.maxVelocity.X, Game1.maxVelocity.X);
            // velocity.Y = MathHelper.Clamp(velocity.Y, -Game1.maxVelocity.Y, Game1.maxVelocity.Y);
 
-            zombieSprite.position += velocity * zombieSpeed * deltaTime;
+            
 
             /*if ((wasMovingLeft && (velocity.X > 0)) || (wasMovingRight && (velocity.X < 0)))
             {
@@ -118,6 +113,22 @@ namespace ProjectCRYPT
             bool cellright = game.CellAtTileCoord(tx + 1, ty) != 0;
             bool celldown = game.CellAtTileCoord(tx, ty + 1) != 0;
             bool celldiag = game.CellAtTileCoord(tx + 1, ty + 1) != 0;
+
+            Vector2.Distance(GetPlayer.Position, zombieSprite.position);
+
+            if(Vector2.Distance(GetPlayer.Position, zombieSprite.position) <= distance)
+            {
+                Vector2 direction;
+
+                direction = GetPlayer.Position - Position;
+                direction.Normalize();
+
+                velocity = direction * (Game1.maxVelocity * deltaTime);
+
+                zombieSprite.position += velocity * zombieSpeed * deltaTime;
+            }
+                      
+            
 
             if (this.velocity.Y > 0)
             {
