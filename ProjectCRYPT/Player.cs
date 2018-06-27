@@ -22,6 +22,7 @@ namespace ProjectCRYPT
         Vector2 position = Vector2.Zero;     
 
         float rotation = 0f;
+        float timerDelay = 0.5f;
 
         Texture2D playerTexture = null;
         Texture2D crosshairTexture = null;
@@ -109,9 +110,12 @@ namespace ProjectCRYPT
             rotation = (float)Math.Atan2(direction.X, direction.Y);
             playerAnimation.Rotation = -rotation;
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            timerDelay -= deltaTime;
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && timerDelay <= 0)
             {
                 Cast();
+                timerDelay = 0.5f;
             }
 
             UpdateFireballs(deltaTime);
