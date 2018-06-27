@@ -91,7 +91,7 @@ namespace ProjectCRYPT
             fireballTexture = (content.Load<Texture2D>("fireball"));
 
             dustParticle = content.Load<Texture2D>("dust");
-            dustEmitter = new Emitter(dustParticle, playerSprite.position);
+            dustEmitter = new Emitter(dustParticle, playerSprite.position +;
 
 
         }

@@ -19,7 +19,7 @@ namespace ProjectCRYPT
 
         Game1 game = null;
 
-        float distance = 70;
+        float distance = 140;
         Vector2 position = Vector2.Zero;
         Vector2 velocity = Vector2.Zero;
 
