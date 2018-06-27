@@ -22,6 +22,7 @@ namespace ProjectCRYPT
         Player player = null;
 
         List<Zombie> zombies = new List<Zombie>();
+        List<Skeleton> skeletons = new List<Skeleton>();
 
         Camera2D camera = null;
         TiledMap map = null;
@@ -122,6 +123,20 @@ namespace ProjectCRYPT
                     }
                 }
             }
+            foreach (TiledMapObjectLayer layer in map.ObjectLayers)
+            {
+                if (layer.Name == "Skeletons")
+                {
+                    foreach (TiledMapObject obj in layer.Objects)
+                    {
+                        Skeleton skeleton = new Skeleton(this);
+                        skeleton.Load(Content);
+                        skeleton.GetPlayer = player;
+                        skeleton.Position = new Vector2(obj.Position.X, obj.Position.Y);
+                        skeletons.Add(skeleton);
+                    }
+                }
+            }
 
         }
 
@@ -146,7 +161,10 @@ namespace ProjectCRYPT
                 zombie.Update(deltaTime);
             }
 
-
+            foreach(Skeleton skeleton in skeletons)
+            {
+                skeleton.Update(deltaTime);
+            }
 
             camera.Zoom = 3f;
 
@@ -180,6 +198,10 @@ namespace ProjectCRYPT
             foreach (Zombie zombie in zombies)
             {
                 zombie.Draw(spriteBatch);
+            }
+            foreach(Skeleton skeleton in skeletons)
+            {
+                skeleton.Draw(spriteBatch);
             }
 
             spriteBatch.End();
