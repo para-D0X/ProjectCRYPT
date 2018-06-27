@@ -19,13 +19,17 @@ namespace ProjectCRYPT
 
         Game1 game = null;
 
+<<<<<<< HEAD
         float distance = 140;
+=======
+        float distance = 90;
+>>>>>>> 1e89d02840d2cd724841a0d5f2e1f258159bc7a9
         Vector2 position = Vector2.Zero;
         Vector2 velocity = Vector2.Zero;
 
         public Player GetPlayer { get; set; }
 
-        float skeletonSpeed = 35f;
+        float skeletonSpeed = 38f;
 
         Texture2D skeleton;
 
