@@ -16,28 +16,31 @@ namespace ProjectCRYPT
     {
         Game1 game = null;
 
+        #region Variables
+
         Vector2 velocity = Vector2.Zero;
-        Vector2 position = Vector2.Zero;
+        Vector2 position = Vector2.Zero;     
+
         float rotation = 0f;
-        
 
         Texture2D playerTexture = null;
         Texture2D crosshairTexture = null;
         Texture2D fireballTexture = null;
-
+        Texture2D dustParticle = null;
+        Texture2D fireParticle = null;
 
         List<Fireball> fireballs = new List<Fireball>();
 
         Sprite playerSprite = new Sprite();
         Sprite crosshair = new Sprite();
         
-       /* Emitter dustEmitter = null;
-        Texture2D dustParticle = null;
-        Vector2 emitterOffset = new Vector2(8, 8); */
-
+        Emitter dustEmitter = null;
+        Emitter fireEmitter = null;
 
         AnimatedTexture playerAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
         AnimatedTexture crosshairAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
+
+        #endregion
 
         float Deg2Rad(float Deg)
         {
@@ -86,14 +89,19 @@ namespace ProjectCRYPT
 
             fireballTexture = (content.Load<Texture2D>("fireball"));
 
-            //dustParticle = content.Load<Texture2D>("dust");
-            //dustEmitter = new Emitter(dustEmitter, playerSprite.position);
+            dustParticle = content.Load<Texture2D>("dust");
+            dustEmitter = new Emitter(dustParticle, playerSprite.position);
+
+            fireParticle = content.Load<Texture2D>("fireball");
+            //fireEmitter = new Emitter(fireParticle, ---fireball position needs to go here--- );
         }
 
         public void Update(float deltaTime)
         {
             playerSprite.Update(deltaTime);
             UpdateInput(deltaTime);
+
+            KeyboardState state = Keyboard.GetState();
 
             crosshair.position = game.MousePos;
 
@@ -108,6 +116,44 @@ namespace ProjectCRYPT
             }
 
             UpdateFireballs();
+
+            #region RunningParticles
+            if (state.IsKeyDown(Keys.A) || (state.IsKeyDown(Keys.D) || (state.IsKeyDown(Keys.W) || (state.IsKeyDown(Keys.S) == true))))
+            {
+
+                
+                dustEmitter.position = playerSprite.position ;
+                dustEmitter.emissionRate = 15;
+                dustEmitter.transparency = 1f;
+                dustEmitter.minSize = 2;
+                dustEmitter.maxSize = 5;
+                dustEmitter.maxLife = 1.0f;
+                
+
+            }
+            else
+            {
+                dustEmitter.position = new Vector2(-200, -200);
+            }
+
+            dustEmitter.Update(deltaTime);
+
+            #endregion
+
+            /*
+            //this position is temporary while list is figured out
+            fireEmitter.position = new Vector2(100, 100);
+
+            //fireEmitter.position = fireball position needs to go here;
+            fireEmitter.emissionRate = 30;
+            fireEmitter.transparency = 0.7f;
+            fireEmitter.minSize = 10;
+            fireEmitter.maxSize = 15;
+            fireEmitter.maxLife = 1.0f;
+
+            fireEmitter.Update(deltaTime);
+            */
+
         }
 
         public void UpdateFireballs()
@@ -146,13 +192,15 @@ namespace ProjectCRYPT
 
         private void UpdateInput(float deltaTime)
         {
+            #region Player Movement 
             bool wasMovingLeft = velocity.X < 0;
             bool wasMovingRight = velocity.X > 0;
             bool wasMovingUp = velocity.Y < 0;
             bool wasMovingDown = velocity.Y > 0;
 
-            Vector2 acceleration = new Vector2(0, 0);
 
+            Vector2 acceleration = new Vector2(0, 0);
+       
             if (Keyboard.GetState().IsKeyDown(Keys.A) == true)
             {
                 acceleration.X -= Game1.xAcceleration;
@@ -206,16 +254,76 @@ namespace ProjectCRYPT
                 velocity.Y = 0;
             }
 
+            #endregion
+
+            #region Player-To-Tile Collision Detection
+
+            int tx = game.PixelToTile(playerSprite.position.X);
+            int ty = game.PixelToTile(playerSprite.position.Y);
+
+            bool nx = (playerSprite.position.X) % Game1.tile != 0;
+
+            bool ny = (playerSprite.position.Y) % Game1.tile != 0;
+
+            bool cell = game.CellAtTileCoord(tx, ty) != 0;
+            bool cellright = game.CellAtTileCoord(tx + 1, ty) != 0;
+            bool celldown = game.CellAtTileCoord(tx, ty + 1) != 0;
+            bool celldiag = game.CellAtTileCoord(tx + 1, ty + 1) != 0;
+
+            if (this.velocity.Y > 0)
+            {
+                if ((celldown && !cell) || (celldiag && !cellright && nx))
+                {
+                    playerSprite.position.Y = game.TileToPixel(ty);
+                    this.velocity.Y = 0;
+                    ny = false;
+                }
+            }
+
+            else if (this.velocity.Y < 0)
+            {
+                if ((cell && !celldown) || (cellright && !celldiag && nx))
+                {
+                    playerSprite.position.Y = game.TileToPixel(ty + 1);
+                    this.velocity.Y = 0;
+                    cell = celldown;
+                    cellright = celldiag;
+                    ny = false;
+                }
+            }
+
+            if (this.velocity.X > 0)
+            {
+                if ((cellright && !cell) || (celldiag && !celldown && ny))
+                {
+                    playerSprite.position.X = game.TileToPixel(tx);
+                    this.velocity.X = 0;
+                    playerSprite.Pause();
+                }
+            }
+            else if (this.velocity.X < 0)
+            {
+                if ((cell && !cellright) || (celldown && !celldiag && ny))
+                {
+                    playerSprite.position.X = game.TileToPixel(tx + 1);
+                    this.velocity.X = 0;
+                    playerSprite.Pause();
+                }
+            }
+
+            #endregion
         }
 
-    
+
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            dustEmitter.Draw(spriteBatch);
             playerSprite.Draw(spriteBatch);
             crosshair.Draw(spriteBatch);
+            
 
-            foreach(Fireball fireball in fireballs)
+            foreach (Fireball fireball in fireballs)
             {
                 fireball.Draw(spriteBatch);
             }
