@@ -27,7 +27,7 @@ namespace ProjectCRYPT
         Texture2D crosshairTexture = null;
         Texture2D fireballTexture = null;
         Texture2D dustParticle = null;
-        Texture2D fireParticle = null;
+
 
         List<Fireball> fireballs = new List<Fireball>();
 
@@ -35,7 +35,7 @@ namespace ProjectCRYPT
         Sprite crosshair = new Sprite();
         
         Emitter dustEmitter = null;
-        Emitter fireEmitter = null;
+
 
         AnimatedTexture playerAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
         AnimatedTexture crosshairAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
@@ -78,7 +78,7 @@ namespace ProjectCRYPT
             playerTexture = content.Load<Texture2D>("player");
             playerAnimation.Load(content, "player", 1, 1);
             playerAnimation.Origin = new Vector2(playerTexture.Width / 2, playerTexture.Height / 2);
-            playerSprite.Add(playerAnimation, 0, 0);
+            playerSprite.Add(playerAnimation, playerTexture.Width / 2, playerTexture.Height / 2);
             playerSprite.Pause();
 
             crosshairTexture = content.Load<Texture2D>("crosshair");
@@ -92,8 +92,7 @@ namespace ProjectCRYPT
             dustParticle = content.Load<Texture2D>("dust");
             dustEmitter = new Emitter(dustParticle, playerSprite.position);
 
-            fireParticle = content.Load<Texture2D>("fireball");
-            //fireEmitter = new Emitter(fireParticle, ---fireball position needs to go here--- );
+
         }
 
         public void Update(float deltaTime)
@@ -115,21 +114,18 @@ namespace ProjectCRYPT
                 Cast();
             }
 
-            UpdateFireballs();
+            UpdateFireballs(deltaTime);
 
             #region RunningParticles
             if (state.IsKeyDown(Keys.A) || (state.IsKeyDown(Keys.D) || (state.IsKeyDown(Keys.W) || (state.IsKeyDown(Keys.S) == true))))
             {
-
-                
+             
                 dustEmitter.position = playerSprite.position ;
                 dustEmitter.emissionRate = 15;
                 dustEmitter.transparency = 1f;
                 dustEmitter.minSize = 2;
                 dustEmitter.maxSize = 5;
-                dustEmitter.maxLife = 1.0f;
-                
-
+                dustEmitter.maxLife = 1.0f;               
             }
             else
             {
@@ -137,26 +133,11 @@ namespace ProjectCRYPT
             }
 
             dustEmitter.Update(deltaTime);
-
             #endregion
-
-            /*
-            //this position is temporary while list is figured out
-            fireEmitter.position = new Vector2(100, 100);
-
-            //fireEmitter.position = fireball position needs to go here;
-            fireEmitter.emissionRate = 30;
-            fireEmitter.transparency = 0.7f;
-            fireEmitter.minSize = 10;
-            fireEmitter.maxSize = 15;
-            fireEmitter.maxLife = 1.0f;
-
-            fireEmitter.Update(deltaTime);
-            */
 
         }
 
-        public void UpdateFireballs()
+        public void UpdateFireballs(float deltaTime)
         {
             foreach (Fireball fireball in fireballs)
             {
@@ -164,7 +145,10 @@ namespace ProjectCRYPT
                 if (Vector2.Distance(fireball.position, playerSprite.position) > 500)
                 {
                     fireball.isAlive = false;
+
                 }
+
+                fireball.Update(deltaTime);
             }
             for (int i = 0; i < fireballs.Count; i++)
             {
@@ -181,8 +165,9 @@ namespace ProjectCRYPT
         {
             Fireball newFireball = new Fireball(fireballTexture);
             newFireball.velocity = new Vector2((float)Math.Cos(-rotation + 1.5708f), (float)Math.Sin(-rotation + 1.5708f)) * 2f ;
-            newFireball.position = playerSprite.position + newFireball.velocity * 5 ;
+            newFireball.position = playerSprite.position + new Vector2 (playerTexture.Width / 2, playerTexture.Height / 2) + newFireball.velocity * 5 ;
             newFireball.isAlive = true;
+            newFireball.Load(game.Content);
 
             if (fireballs.Count() < 200)
             {
@@ -310,7 +295,6 @@ namespace ProjectCRYPT
                     playerSprite.Pause();
                 }
             }
-
             #endregion
         }
 
@@ -320,13 +304,14 @@ namespace ProjectCRYPT
         {
             dustEmitter.Draw(spriteBatch);
             playerSprite.Draw(spriteBatch);
-            crosshair.Draw(spriteBatch);
-            
-
+        
             foreach (Fireball fireball in fireballs)
             {
+
                 fireball.Draw(spriteBatch);
             }
+
+            crosshair.Draw(spriteBatch);
         }
 
 

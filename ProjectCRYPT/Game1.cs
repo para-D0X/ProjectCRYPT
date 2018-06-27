@@ -79,7 +79,7 @@ namespace ProjectCRYPT
         {
       
             player = new Player(this);
-            player.Position = new Vector2(0, 0);
+            player.Position = new Vector2(95, 60);
 
             base.Initialize();
             this.IsMouseVisible = true;
