@@ -25,7 +25,7 @@ namespace ProjectCRYPT
 
         public Player GetPlayer { get; set; }
 
-        float skeletonSpeed = 25f;
+        float skeletonSpeed = 35f;
 
         Texture2D skeleton;
 
