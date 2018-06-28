@@ -130,8 +130,6 @@ namespace ProjectCRYPT
                 zombieSprite.position += velocity * zombieSpeed * deltaTime;
             }
                       
-            
-
             if (this.velocity.Y > 0)
             {
                 if ((celldown && !cell) || (celldiag && !cellright && nx))

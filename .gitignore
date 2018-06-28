@@ -22,3 +22,17 @@ obj/
 .vs/ProjectCRYPT/v15/.suo
 *.mgcontent
 .vs/ProjectCRYPT/v15/.suo
+*.mgcontent
+.vs/ProjectCRYPT/v15/.suo
+ProjectCRYPT/Content/obj/Windows/.mgcontent
+ProjectCRYPT/Content/obj/Windows/Arial.mgcontent
+ProjectCRYPT/Content/obj/Windows/crosshair.mgcontent
+ProjectCRYPT/Content/obj/Windows/cryptoverworld.mgcontent
+ProjectCRYPT/Content/obj/Windows/dust.mgcontent
+ProjectCRYPT/Content/obj/Windows/fireball.mgcontent
+ProjectCRYPT/Content/obj/Windows/player.mgcontent
+ProjectCRYPT/Content/obj/Windows/roguelikeSheet_transparent.mgcontent
+ProjectCRYPT/Content/obj/Windows/zombie.mgcontent
+ProjectCRYPT/Content/obj/Windows/zombie2.mgcontent
+*.mgcontent
+*.mgcontent
