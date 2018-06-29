@@ -24,6 +24,11 @@ namespace ProjectCRYPT
         Emitter fireEmitter = null;
         Texture2D fireParticle = null;
 
+        /*public Rectangle Bounds
+        {
+            get { return texture.Bounds; }
+        }*/
+
         public Fireball(Texture2D newTexture)
         {
             texture = newTexture;

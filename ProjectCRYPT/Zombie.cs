@@ -26,7 +26,8 @@ namespace ProjectCRYPT
         Vector2 velocity = Vector2.Zero;
 
         public Player GetPlayer { get; set; }
-
+        public Fireball GetFireball { get; set; }
+        public bool isAlive;
         float zombieSpeed = 25f;
         
         Texture2D zombie;
@@ -170,14 +171,21 @@ namespace ProjectCRYPT
                     zombieSprite.Pause();
                 }
             }
+            
+            /*if(IsColliding(zombie.Bounds, GetFireball.texture.Bounds) == true)
+            {
+                isAlive = false;
+            }*/
+            
 
         }
+        
 
-       
         public void Draw(SpriteBatch spriteBatch)
         {          
             zombieSprite.Draw(spriteBatch);
             //spriteBatch.DrawRectangle(zombieSprite.Bounds, Color.White, 1);
         }
+                
     }
 }

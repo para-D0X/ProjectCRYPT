@@ -20,7 +20,7 @@ namespace ProjectCRYPT
         SpriteBatch spriteBatch;
 
         Player player = null;
-
+        
         List<Zombie> zombies = new List<Zombie>();
         List<Skeleton> skeletons = new List<Skeleton>();
         List<Coin> coins = new List<Coin>();
@@ -79,9 +79,9 @@ namespace ProjectCRYPT
 
         protected override void Initialize()
         {
-      
             player = new Player(this);
             player.Position = new Vector2(95, 60);
+            
 
             base.Initialize();
             this.IsMouseVisible = true;
@@ -121,6 +121,13 @@ namespace ProjectCRYPT
                         zombie.GetPlayer = player;
                         zombie.Position = new Vector2(obj.Position.X, obj.Position.Y);
                         zombies.Add(zombie);
+
+                        /*if (IsColliding(zombie.Bounds, texture.Bounds) == true)
+                        {
+                            zombies.Remove(zombie);
+                        }*/
+
+                        
                     }
                 }
             }
@@ -275,6 +282,25 @@ namespace ProjectCRYPT
             return tile.Value.GlobalIdentifier;
 
         }
-       
+
+        /*private bool IsColliding(Rectangle zombieSprite, Rectangle texture)
+        {
+            if (zombieSprite.X + zombieSprite.Width < texture.X ||
+                zombieSprite.X > texture.X + texture.Width ||
+                zombieSprite.Y + zombieSprite.Height < texture.Y ||
+                zombieSprite.Y > texture.Y + texture.Height)
+            {
+                // these two rectangles are not colliding
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+            // else, the two AABB rectangles overlap, therefore collision
+
+        }*/
+
     }
 }
