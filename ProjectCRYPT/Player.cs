@@ -84,7 +84,7 @@ namespace ProjectCRYPT
 
             crosshairTexture = content.Load<Texture2D>("crosshair");
             crosshairAnimation.Load(content, "crosshair", 1, 1);
-            crosshairAnimation.Origin = new Vector2(crosshairTexture.Width / 2, crosshairTexture.Height / 2);
+            //crosshairAnimation.Origin = new Vector2(crosshairTexture.Width / 2, crosshairTexture.Height / 2);
             crosshair.Add(crosshairAnimation, 0, 0);
             crosshair.Pause();
 

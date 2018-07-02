@@ -49,7 +49,7 @@ namespace ProjectCRYPT
 
             fireballAnimation.Origin = new Vector2(texture.Width / 2, texture.Height / 2);
 
-            fireballSprite.Add(fireballAnimation, texture.Width / 2, texture.Height / 2);
+            fireballSprite.Add(fireballAnimation, 0, 0);
             fireballSprite.Pause();
 
             fireEmitter = new Emitter(fireParticle, new Vector2 (10, 10));
@@ -57,15 +57,16 @@ namespace ProjectCRYPT
 
         public void Update (float deltaTime)
         {
-            
+
+            fireballSprite.position = position;
+
             fireEmitter.position = position;
             fireEmitter.emissionRate = 15;
             fireEmitter.transparency = 1f;
             fireEmitter.minSize = 2;
             fireEmitter.maxSize = 5;
             fireEmitter.maxLife = 1.0f;
-           
-
+          
             fireEmitter.Update(deltaTime);
         }
 

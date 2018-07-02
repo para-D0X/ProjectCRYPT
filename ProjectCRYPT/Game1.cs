@@ -194,13 +194,14 @@ namespace ProjectCRYPT
             player.Update(deltaTime);
             
 
-            /*foreach(Fireball fireball in player.fireballs)
+            foreach(Fireball fireball in player.fireballs)
             {
                 foreach(Zombie zombie in zombies)
                 {
-                    if (IsColliding(fireball.bounds) == true)
+                    if (IsColliding(fireball.fireballSprite.Bounds, zombie.zombieSprite.Bounds) == true)
                     {
-                        return;
+                        zombies.Remove(zombie);
+                        break;
                     }
                 }
 
@@ -208,7 +209,7 @@ namespace ProjectCRYPT
                 {
 
                 }
-            }*/
+            }
 
             foreach(Zombie zombie in zombies)
             {
@@ -349,7 +350,7 @@ namespace ProjectCRYPT
             switch (GameState)
             {
                 case STATE_SPLASH:
-                  //  DrawSplashState(spriteBatch);
+                    DrawSplashState(spriteBatch);
                     break;
 
 
