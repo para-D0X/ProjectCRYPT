@@ -32,12 +32,8 @@ namespace ProjectCRYPT
 
         SpriteFont arial;
 
-        MouseState mouse = Mouse.GetState();
-
+        MouseState mouse = Mouse.GetState();    
         Vector2 mousePosition = Vector2.Zero;
-
-
-
 
         public static int tile = 16;
         public static float meter = tile;
@@ -120,14 +116,7 @@ namespace ProjectCRYPT
                         zombie.Load(Content);
                         zombie.GetPlayer = player;
                         zombie.Position = new Vector2(obj.Position.X, obj.Position.Y);
-                        zombies.Add(zombie);
-
-                        /*if (IsColliding(zombie.Bounds, texture.Bounds) == true)
-                        {
-                            zombies.Remove(zombie);
-                        }*/
-
-                        
+                        zombies.Add(zombie);                        
                     }
                 }
             }
