@@ -24,10 +24,8 @@ namespace ProjectCRYPT
         Emitter fireEmitter = null;
         Texture2D fireParticle = null;
 
-        /*public Rectangle Bounds
-        {
-            get { return texture.Bounds; }
-        }*/
+        public Sprite fireballSprite = new Sprite();
+        AnimatedTexture fireballAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
 
         public Fireball(Texture2D newTexture)
         {
@@ -37,7 +35,8 @@ namespace ProjectCRYPT
 
         public void Draw (SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, null, Color.White, 0f, origin, 1f, SpriteEffects.None, 0);
+            //spriteBatch.Draw(texture, position, null, Color.White, 0f, origin, 1f, SpriteEffects.None, 0);
+            fireballSprite.Draw(spriteBatch);
 
             fireEmitter.Draw(spriteBatch);
         }
@@ -45,6 +44,14 @@ namespace ProjectCRYPT
         public void Load (ContentManager content)
         {
             fireParticle = content.Load<Texture2D>("fireball");
+
+            fireballAnimation.Load(content, "fireball", 1, 1);
+
+            fireballAnimation.Origin = new Vector2(texture.Width / 2, texture.Height / 2);
+
+            fireballSprite.Add(fireballAnimation, texture.Width / 2, texture.Height / 2);
+            fireballSprite.Pause();
+
             fireEmitter = new Emitter(fireParticle, new Vector2 (10, 10));
         }
 

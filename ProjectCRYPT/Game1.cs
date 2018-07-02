@@ -16,6 +16,8 @@ namespace ProjectCRYPT
 
     public class Game1 : Game 
     {
+        #region VARIABLES
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -42,6 +44,20 @@ namespace ProjectCRYPT
         public static float yAcceleration = maxVelocity.Y * 5;
         public static float xFriction = maxVelocity.X * 6;
         public static float yFriction = maxVelocity.Y * 6;
+
+        #endregion
+
+        #region STATES
+
+        const int STATE_SPLASH = 0;
+        const int STATE_MENU = 1;
+        const int STATE_GAME = 2;
+        const int STATE_WIN = 3;
+        const int STATE_LOSE = 4;
+
+        int GameState = STATE_SPLASH;
+
+        #endregion
 
         public int ScreenWidth
         {
@@ -75,9 +91,10 @@ namespace ProjectCRYPT
 
         protected override void Initialize()
         {
+            GameState = STATE_SPLASH;
+
             player = new Player(this);
-            player.Position = new Vector2(95, 60);
-            
+            player.Position = new Vector2(95, 60);         
 
             base.Initialize();
             this.IsMouseVisible = true;
@@ -155,7 +172,18 @@ namespace ProjectCRYPT
 
         }
 
-        
+        private bool IsColliding(Rectangle rect1, Rectangle rect2)
+        {
+            if (rect1.X + rect1.Width < rect2.X ||
+                rect1.X > rect2.X + rect2.Width ||
+                rect1.Y + rect1.Height < rect2.Y ||
+                rect1.Y > rect2.Y + rect2.Height)
+            {
+                // these two rectangles are not colliding;
+                return false;
+            }
+            return true;
+        }
 
         protected override void Update(GameTime gameTime)
         {
@@ -166,9 +194,26 @@ namespace ProjectCRYPT
             player.Update(deltaTime);
             
 
+            /*foreach(Fireball fireball in player.fireballs)
+            {
+                foreach(Zombie zombie in zombies)
+                {
+                    if (IsColliding(fireball.bounds) == true)
+                    {
+                        return;
+                    }
+                }
+
+                foreach(Skeleton skeletons in skeletons)
+                {
+
+                }
+            }*/
+
             foreach(Zombie zombie in zombies)
             {
                 zombie.Update(deltaTime);
+                
             }
 
             foreach(Skeleton skeleton in skeletons)
@@ -190,10 +235,89 @@ namespace ProjectCRYPT
 
             Console.WriteLine(mousePosition);
 
+            switch (GameState)
+            {
+                case STATE_SPLASH:
+                    UpdateSplashState(deltaTime);
+                    break;
+                case STATE_MENU:
+                    UpdateMenuState(deltaTime);
+                    break;
+                case STATE_GAME:
+                    UpdateGameState(deltaTime);
+                    break;
+                case STATE_WIN:
+                    UpdateWinState(deltaTime);
+                    break;
+                case STATE_LOSE:
+                    UpdateLoseState(deltaTime);
+                    break;
+            }
+
             base.Update(gameTime);
-        }      
+        }
 
+        //GAME STATES
 
+        #region SplashState
+        private void UpdateSplashState(float deltaTime)
+        {
+
+        }
+
+        private void DrawSplashState(float deltaTime)
+        {
+
+        }
+        #endregion
+
+        #region MenuState
+        private void UpdateMenuState(float deltaTime)
+        {
+
+        }
+
+        private void DrawMenuState(float deltaTime)
+        {
+
+        }
+        #endregion
+
+        #region GameState
+        private void UpdateGameState(float deltaTime)
+        {
+
+        }
+  
+        private void DrawGameState(float deltaTime)
+        {
+
+        }
+        #endregion
+
+        #region WinState
+        private void UpdateWinState(float deltaTime)
+        {
+
+        }
+
+        private void DrawWinState(float deltaTime)
+        {
+
+        }
+        #endregion
+
+        #region LoseState
+        private void UpdateLoseState(float deltaTime)
+        {
+
+        }
+
+        private void DrawLoseState(float deltaTime)
+        {
+
+        }
+        #endregion
 
 
         protected override void Draw(GameTime gameTime)
@@ -222,11 +346,21 @@ namespace ProjectCRYPT
                 coin.Draw(spriteBatch);
             }
 
+            switch (GameState)
+            {
+                case STATE_SPLASH:
+                  //  DrawSplashState(spriteBatch);
+                    break;
+
+
+            }
+
             spriteBatch.End();
 
             base.Draw(gameTime);
         }
 
+        #region Tiled Code
         public int PixelToTile(float pixelCoord)
         {
             return (int)Math.Floor(pixelCoord / tile);
@@ -272,24 +406,6 @@ namespace ProjectCRYPT
 
         }
 
-        /*private bool IsColliding(Rectangle zombieSprite, Rectangle texture)
-        {
-            if (zombieSprite.X + zombieSprite.Width < texture.X ||
-                zombieSprite.X > texture.X + texture.Width ||
-                zombieSprite.Y + zombieSprite.Height < texture.Y ||
-                zombieSprite.Y > texture.Y + texture.Height)
-            {
-                // these two rectangles are not colliding
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-
-            // else, the two AABB rectangles overlap, therefore collision
-
-        }*/
-
+        #endregion
     }
 }
