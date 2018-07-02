@@ -14,7 +14,7 @@ namespace ProjectCRYPT
     class Zombie 
     {
         GraphicsDeviceManager graphics;
-        Sprite zombieSprite = new Sprite();
+        public Sprite zombieSprite = new Sprite();
         
 
         Game1 game = null;
@@ -172,11 +172,7 @@ namespace ProjectCRYPT
                 }
             }
             
-            /*if(IsColliding(zombie.Bounds, GetFireball.texture.Bounds) == true)
-            {
-                isAlive = false;
-            }*/
-            
+                      
 
         }
         
