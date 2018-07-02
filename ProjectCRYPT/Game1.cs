@@ -196,18 +196,31 @@ namespace ProjectCRYPT
 
             foreach(Fireball fireball in player.fireballs)
             {
+
+                if (Vector2.Distance(fireball.position, player.playerSprite.position) > 500)
+                {
+                    fireball.isAlive = false;
+
+                }
+
                 foreach(Zombie zombie in zombies)
                 {
                     if (IsColliding(fireball.fireballSprite.Bounds, zombie.zombieSprite.Bounds) == true)
                     {
                         zombies.Remove(zombie);
+                        fireball.isAlive = false;
                         break;
                     }
                 }
 
-                foreach(Skeleton skeletons in skeletons)
+                foreach(Skeleton skeleton in skeletons)
                 {
-
+                    if (IsColliding(fireball.fireballSprite.Bounds, skeleton.skeletonSprite.Bounds) == true)
+                    {
+                        skeletons.Remove(skeleton);
+                        fireball.isAlive = false;
+                        break;
+                    }
                 }
             }
 
@@ -266,7 +279,7 @@ namespace ProjectCRYPT
 
         }
 
-        private void DrawSplashState(float deltaTime)
+        private void DrawSplashState(SpriteBatch spriteBatch)
         {
 
         }
@@ -278,7 +291,7 @@ namespace ProjectCRYPT
 
         }
 
-        private void DrawMenuState(float deltaTime)
+        private void DrawMenuState(SpriteBatch spriteBatch)
         {
 
         }
@@ -290,7 +303,7 @@ namespace ProjectCRYPT
 
         }
   
-        private void DrawGameState(float deltaTime)
+        private void DrawGameState(SpriteBatch spriteBatch)
         {
 
         }
@@ -302,7 +315,7 @@ namespace ProjectCRYPT
 
         }
 
-        private void DrawWinState(float deltaTime)
+        private void DrawWinState(SpriteBatch spriteBatch)
         {
 
         }
@@ -314,7 +327,7 @@ namespace ProjectCRYPT
 
         }
 
-        private void DrawLoseState(float deltaTime)
+        private void DrawLoseState(SpriteBatch spriteBatch)
         {
 
         }
@@ -352,8 +365,18 @@ namespace ProjectCRYPT
                 case STATE_SPLASH:
                     DrawSplashState(spriteBatch);
                     break;
-
-
+                case STATE_MENU:
+                    DrawMenuState(spriteBatch);
+                    break;
+                case STATE_GAME:
+                    DrawGameState(spriteBatch);
+                    break;
+                case STATE_WIN:
+                    DrawWinState(spriteBatch);
+                    break;
+                case STATE_LOSE:
+                    DrawLoseState(spriteBatch);
+                    break;
             }
 
             spriteBatch.End();

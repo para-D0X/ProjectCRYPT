@@ -32,7 +32,7 @@ namespace ProjectCRYPT
 
         public List<Fireball> fireballs = new List<Fireball>();
 
-        Sprite playerSprite = new Sprite();
+        public Sprite playerSprite = new Sprite();
         Sprite crosshair = new Sprite();
         
         Emitter dustEmitter = null;
@@ -116,7 +116,7 @@ namespace ProjectCRYPT
             {
                 Cast();
                 timerDelay = 0.5f;
-            }
+            }   
 
             UpdateFireballs(deltaTime);
 
