@@ -30,7 +30,7 @@ namespace ProjectCRYPT
         Texture2D dustParticle = null;
 
 
-        List<Fireball> fireballs = new List<Fireball>();
+        public List<Fireball> fireballs = new List<Fireball>();
 
         Sprite playerSprite = new Sprite();
         Sprite crosshair = new Sprite();
