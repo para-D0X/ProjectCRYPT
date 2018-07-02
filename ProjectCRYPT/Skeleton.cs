@@ -14,7 +14,7 @@ namespace ProjectCRYPT
     class Skeleton
     {
         GraphicsDeviceManager graphics;
-        Sprite skeletonSprite = new Sprite();
+        public Sprite skeletonSprite = new Sprite();
 
 
         Game1 game = null;
