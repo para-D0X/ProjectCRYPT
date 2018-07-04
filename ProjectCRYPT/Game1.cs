@@ -37,6 +37,15 @@ namespace ProjectCRYPT
         MouseState mouse = Mouse.GetState();    
         Vector2 mousePosition = Vector2.Zero;
 
+        Texture2D splash = null;
+        Texture2D healthBar = null;
+
+        bool PlayOnce = false;
+        float Timer = 3;
+        float DamageTimer = 1;
+
+        int health = 15;
+
         public static int tile = 16;
         public static float meter = tile;
         public static Vector2 maxVelocity = new Vector2(meter * 7, meter * 7);
@@ -112,6 +121,9 @@ namespace ProjectCRYPT
 
             camera = new Camera2D(viewportAdapter);
             camera.Position = new Vector2(-100, -100);
+
+            splash = Content.Load<Texture2D>("splashscreen");
+            healthBar = Content.Load<Texture2D>("healthbar");
 
             map = Content.Load<TiledMap>("dungeon1");
             mapRenderer = new TiledMapRenderer(GraphicsDevice);
@@ -192,62 +204,9 @@ namespace ProjectCRYPT
 
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             player.Update(deltaTime);
-            
 
-            foreach(Fireball fireball in player.fireballs)
-            {
-
-                if (Vector2.Distance(fireball.position, player.playerSprite.position) > 500)
-                {
-                    fireball.isAlive = false;
-
-                }
-
-                foreach(Zombie zombie in zombies)
-                {
-                    if (IsColliding(fireball.fireballSprite.Bounds, zombie.zombieSprite.Bounds) == true)
-                    {
-                        zombies.Remove(zombie);
-                        fireball.isAlive = false;
-                        break;
-                    }
-                }
-
-                foreach(Skeleton skeleton in skeletons)
-                {
-                    if (IsColliding(fireball.fireballSprite.Bounds, skeleton.skeletonSprite.Bounds) == true)
-                    {
-                        skeletons.Remove(skeleton);
-                        fireball.isAlive = false;
-                        break;
-                    }
-                }
-            }
-
-            foreach(Zombie zombie in zombies)
-            {
-                zombie.Update(deltaTime);
-                
-            }
-
-            foreach(Skeleton skeleton in skeletons)
-            {
-                skeleton.Update(deltaTime);
-            }
-            foreach(Coin coin in coins)
-            {
-                coin.Update(deltaTime);
-            }
-
-            camera.Zoom = 3f;
-
-            camera.Position = player.Position - new Vector2(ScreenWidth / 2, ScreenHeight / 2);
-
-
-            mouse = Mouse.GetState();
-            mousePosition = new Vector2(mouse.X, mouse.Y);
-
-            Console.WriteLine(mousePosition);
+            CheckHealth();
+            DamageTimer -= deltaTime;
 
             switch (GameState)
             {
@@ -277,11 +236,20 @@ namespace ProjectCRYPT
         private void UpdateSplashState(float deltaTime)
         {
 
+            Timer -= deltaTime;
+
+            if (Timer <= 0)
+            {
+                GameState = STATE_MENU;
+            }
+
         }
 
         private void DrawSplashState(SpriteBatch spriteBatch)
         {
-
+            spriteBatch.Begin();
+            spriteBatch.Draw(splash, new Vector2(0, 0), Color.White);
+            spriteBatch.End();
         }
         #endregion
 
@@ -289,11 +257,32 @@ namespace ProjectCRYPT
         private void UpdateMenuState(float deltaTime)
         {
 
+            if (PlayOnce != false)
+            {
+                PlayOnce = false;
+            }
+
+            KeyboardState state = Keyboard.GetState();
+            MouseState mouseState = Mouse.GetState();
+
+            if (state.IsKeyDown(Keys.Space) == true)
+            {
+                GameState = STATE_GAME;
+                if (PlayOnce != true)
+                {
+                    PlayOnce = true;
+                }
+            }
+
         }
 
         private void DrawMenuState(SpriteBatch spriteBatch)
         {
+            spriteBatch.Begin();
 
+            spriteBatch.DrawString(arial, "Press Space to Start", new Vector2(ScreenWidth / 2, ScreenHeight / 2), Color.White);
+
+            spriteBatch.End();
         }
         #endregion
 
@@ -301,10 +290,120 @@ namespace ProjectCRYPT
         private void UpdateGameState(float deltaTime)
         {
 
+            PlayOnce = false;
+
+            foreach (Fireball fireball in player.fireballs)
+            {
+
+                if (Vector2.Distance(fireball.position, player.playerSprite.position) > 500)
+                {
+                    fireball.isAlive = false;
+
+                }
+
+                foreach (Zombie zombie in zombies)
+                {
+                    if (IsColliding(fireball.fireballSprite.Bounds, zombie.zombieSprite.Bounds) == true)
+                    {
+                        zombies.Remove(zombie);
+                        fireball.isAlive = false;
+                        break;
+                    }
+                }
+
+                foreach (Skeleton skeleton in skeletons)
+                {
+                    if (IsColliding(fireball.fireballSprite.Bounds, skeleton.skeletonSprite.Bounds) == true)
+                    {
+                        skeletons.Remove(skeleton);
+                        fireball.isAlive = false;
+                        break;
+                    }
+                }
+            }
+
+            foreach (Zombie zombie in zombies)
+            {
+                zombie.Update(deltaTime);
+
+            }
+
+            foreach (Skeleton skeleton in skeletons)
+            {
+                skeleton.Update(deltaTime);
+            }
+            foreach (Coin coin in coins)
+            {
+                coin.Update(deltaTime);
+            }
+
+            camera.Zoom = 3f;
+
+            camera.Position = player.Position - new Vector2(ScreenWidth / 2, ScreenHeight / 2);
+
+
+            mouse = Mouse.GetState();
+            mousePosition = new Vector2(mouse.X, mouse.Y);
+
+            //Console.WriteLine(mousePosition);
+
+            Console.WriteLine(ScreenWidth);
+            Console.WriteLine(ScreenHeight);
+
+            if(zombies.Count == 0 && skeletons.Count == 0)
+            {
+                //print "all enemies are dead, proceed to the exit"
+            }
+
+            foreach (Zombie zombie in zombies)
+            {
+                if (IsColliding(player.Bounds, zombie.Bounds) == true && DamageTimer < 0)
+                {
+                                      
+                    //playerhurt.Play();
+                    DamageTimer = 1;
+                    health -= 1;
+                    break;                                     
+                }
+            }
+            /*if (IsColliding(player.Bounds, Endzone) == true)
+            {
+                GameState = STATE_WIN;
+            }*/
+
         }
-  
+
         private void DrawGameState(SpriteBatch spriteBatch)
         {
+
+            var viewMatrix = camera.GetViewMatrix();
+            var projectionMatrix = Matrix.CreateOrthographicOffCenter(0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, 0, 0f, -1f);
+
+            spriteBatch.Begin(transformMatrix: viewMatrix, samplerState: SamplerState.PointClamp);
+
+            mapRenderer.Draw(map, ref viewMatrix, ref projectionMatrix);
+            player.Draw(spriteBatch);
+
+
+            foreach (Zombie zombie in zombies)
+            {
+                zombie.Draw(spriteBatch);
+            }
+            foreach (Skeleton skeleton in skeletons)
+            {
+                skeleton.Draw(spriteBatch);
+            }
+            foreach (Coin coin in coins)
+            {
+                coin.Draw(spriteBatch);
+            }
+
+            for (int i = 0; i < health; i++)
+            {
+                spriteBatch.Draw(healthBar, new Vector2(80 - i * 15, 20), Color.White);
+            }
+
+            spriteBatch.End();
 
         }
         #endregion
@@ -333,32 +432,17 @@ namespace ProjectCRYPT
         }
         #endregion
 
+        private void CheckHealth()
+        {
+            if (health <= 0)
+            {
+                GameState = STATE_LOSE;
+            }
+        }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
-            var viewMatrix = camera.GetViewMatrix();
-            var projectionMatrix = Matrix.CreateOrthographicOffCenter(0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, 0, 0f, -1f);
-
-            spriteBatch.Begin(transformMatrix : viewMatrix, samplerState : SamplerState.PointClamp);
-
-            mapRenderer.Draw(map, ref viewMatrix, ref projectionMatrix);
-            player.Draw(spriteBatch);
-
-
-            foreach (Zombie zombie in zombies)
-            {
-                zombie.Draw(spriteBatch);
-            }
-            foreach(Skeleton skeleton in skeletons)
-            {
-                skeleton.Draw(spriteBatch);
-            }
-            foreach(Coin coin in coins)
-            {
-                coin.Draw(spriteBatch);
-            }
 
             switch (GameState)
             {
@@ -378,8 +462,6 @@ namespace ProjectCRYPT
                     DrawLoseState(spriteBatch);
                     break;
             }
-
-            spriteBatch.End();
 
             base.Draw(gameTime);
         }

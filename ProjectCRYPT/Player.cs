@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 using ParticleEffects;
 
 namespace ProjectCRYPT
@@ -19,7 +20,8 @@ namespace ProjectCRYPT
         #region Variables
 
         Vector2 velocity = Vector2.Zero;
-        Vector2 position = Vector2.Zero;     
+        Vector2 position = Vector2.Zero;
+        Vector2 offset = new Vector2(8, 8);
 
         float rotation = 0f;
         float timerDelay = 0.5f;
@@ -28,6 +30,12 @@ namespace ProjectCRYPT
         Texture2D crosshairTexture = null;
         Texture2D fireballTexture = null;
         Texture2D dustParticle = null;
+
+        SoundEffect footstepSound;
+        SoundEffectInstance footstepSoundInstance;
+
+        SoundEffect fireballSound;
+        SoundEffectInstance fireballSoundInstance;
 
 
         public List<Fireball> fireballs = new List<Fireball>();
@@ -93,6 +101,12 @@ namespace ProjectCRYPT
             dustParticle = content.Load<Texture2D>("dust");
             dustEmitter = new Emitter(dustParticle, playerSprite.position);
 
+            footstepSound = content.Load<SoundEffect>("footstep");
+            footstepSoundInstance = footstepSound.CreateInstance();
+
+            fireballSound = content.Load<SoundEffect>("fireballSound");
+            fireballSoundInstance = fireballSound.CreateInstance();
+
 
         }
 
@@ -102,6 +116,7 @@ namespace ProjectCRYPT
             UpdateInput(deltaTime);
 
             KeyboardState state = Keyboard.GetState();
+            MouseState mouseState = Mouse.GetState();
 
             crosshair.position = game.MousePos;
 
@@ -112,7 +127,10 @@ namespace ProjectCRYPT
 
             timerDelay -= deltaTime;
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && timerDelay <= 0)
+            footstepSoundInstance.Volume = 0.15f;
+            fireballSoundInstance.Volume = 0.3f;
+
+            if ((mouseState.LeftButton == ButtonState.Pressed) && timerDelay <= 0)
             {
                 Cast();
                 timerDelay = 0.5f;
@@ -120,11 +138,11 @@ namespace ProjectCRYPT
 
             UpdateFireballs(deltaTime);
 
-            #region RunningParticles
+            #region Running Effects
             if (state.IsKeyDown(Keys.A) || (state.IsKeyDown(Keys.D) || (state.IsKeyDown(Keys.W) || (state.IsKeyDown(Keys.S) == true))))
             {
              
-                dustEmitter.position = playerSprite.position ;
+                dustEmitter.position = playerSprite.position + offset;
                 dustEmitter.emissionRate = 15;
                 dustEmitter.transparency = 1f;
                 dustEmitter.minSize = 2;
@@ -137,6 +155,14 @@ namespace ProjectCRYPT
             }
 
             dustEmitter.Update(deltaTime);
+
+            if (state.IsKeyDown(Keys.A) || (state.IsKeyDown(Keys.D) || (state.IsKeyDown(Keys.W) || (state.IsKeyDown(Keys.S) == true))))
+            {
+
+                footstepSoundInstance.Play();
+
+            }
+
             #endregion
 
         }
@@ -172,6 +198,8 @@ namespace ProjectCRYPT
             newFireball.position = playerSprite.position + new Vector2 (playerTexture.Width / 2, playerTexture.Height / 2) + newFireball.velocity * 5 ;
             newFireball.isAlive = true;
             newFireball.Load(game.Content);
+            fireballSoundInstance.Play();
+
 
             if (fireballs.Count() < 200)
             {
