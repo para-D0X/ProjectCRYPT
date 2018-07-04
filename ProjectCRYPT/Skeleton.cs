@@ -27,6 +27,7 @@ namespace ProjectCRYPT
 
         public Player GetPlayer { get; set; }
 
+        public float skeletonRotation = 0f;
         float skeletonSpeed = 38f;
 
         Texture2D skeleton;
@@ -50,10 +51,25 @@ namespace ProjectCRYPT
             }
         }
 
+        float RotateTo(Vector2 pointTo)
+        {
+            float rot = 0;
+
+            Vector2 direction = position - pointTo;
+            direction.Normalize();
+
+            rot = (float)Math.Atan2((double)direction.Y, (double)direction.X);
+
+            rot += MathHelper.ToRadians(180);
+
+            return rot;
+        }
+
         public Skeleton(Game1 game)
         {
             this.game = game;
             Position = new Vector2(100, 0);
+            skeletonRotation = 0;
         }
 
         public void Load(ContentManager content)
@@ -73,7 +89,9 @@ namespace ProjectCRYPT
         {
             skeletonSprite.Update(deltaTime);
             UpdateInput(deltaTime);
-
+            skeletonRotation = RotateTo(GetPlayer.Position);
+            skeletonAnimation.Rotation = skeletonRotation;
+            position = skeletonSprite.position;
 
         }
 
@@ -177,6 +195,7 @@ namespace ProjectCRYPT
         public void Draw(SpriteBatch spriteBatch)
         {
             skeletonSprite.Draw(spriteBatch);
+            skeletonAnimation.Rotation = skeletonRotation;
             //spriteBatch.DrawRectangle(zombieSprite.Bounds, Color.White, 1);
         }
     }

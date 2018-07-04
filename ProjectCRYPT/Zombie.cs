@@ -28,6 +28,7 @@ namespace ProjectCRYPT
         public Player GetPlayer { get; set; }
         public Fireball GetFireball { get; set; }
         public bool isAlive;
+        public float zombieRotation = 0f;
         float zombieSpeed = 25f;
         
         Texture2D zombie;
@@ -51,10 +52,25 @@ namespace ProjectCRYPT
             }
         }
 
+        float RotateTo(Vector2 pointTo)
+        {
+            float rot = 0;
+            
+            Vector2 direction = position - pointTo;
+            direction.Normalize();
+
+            rot = (float)Math.Atan2((double)direction.Y,(double)direction.X);
+
+            rot += MathHelper.ToRadians(180);
+
+            return rot;
+        }
+
         public Zombie(Game1 game)
         {
             this.game = game;
             Position = new Vector2(100,0);
+            zombieRotation = 0;
         }
         
         public void Load(ContentManager content)
@@ -76,8 +92,9 @@ namespace ProjectCRYPT
         {
             zombieSprite.Update(deltaTime);
             UpdateInput(deltaTime);
-            
-            
+            zombieRotation = RotateTo(GetPlayer.Position);
+            zombieAnimation.Rotation = zombieRotation;
+            position = zombieSprite.position;
         }
 
         private void UpdateInput(float deltaTime)
@@ -170,16 +187,15 @@ namespace ProjectCRYPT
                     this.velocity.X = 0;
                     zombieSprite.Pause();
                 }
-            }
-            
-                      
+            }                   
 
         }
         
-
+        
         public void Draw(SpriteBatch spriteBatch)
         {          
             zombieSprite.Draw(spriteBatch);
+            zombieAnimation.Rotation = zombieRotation;
             //spriteBatch.DrawRectangle(zombieSprite.Bounds, Color.White, 1);
         }
                 
