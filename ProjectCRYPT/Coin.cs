@@ -11,10 +11,12 @@ namespace ProjectCRYPT
 {
     class Coin
     {
-        Sprite coinSprite = new Sprite();
+        public Sprite coinSprite = new Sprite();
         // keep a reference to the Game object to check for collisions on the map
         Game1 game = null;
-                
+
+        public bool isAlive;
+        
         public Vector2 Position
         {
             get
@@ -26,6 +28,11 @@ namespace ProjectCRYPT
                 coinSprite.position = value;
             }
         }
+        public Coin(Sprite sprite)
+        {
+            isAlive = false;
+        }
+
         public Rectangle Bounds
         {
             get
@@ -48,7 +55,10 @@ namespace ProjectCRYPT
         {
             coinSprite.Update(deltaTime);
 
+            
         }
+
+        
         public void Draw(SpriteBatch spriteBatch)
         {
             coinSprite.Draw(spriteBatch, Position);
