@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Audio;
 
 namespace ProjectCRYPT
 {
@@ -18,7 +19,9 @@ namespace ProjectCRYPT
 
         Game1 game = null;
 
+        //float rotation = 0f;
         float distance = 75;
+        //float timerDelay = 0.75f;
 
         public Player GetPlayer { get; set; }
         public Fireball GetFireball { get; set; }
@@ -26,8 +29,14 @@ namespace ProjectCRYPT
         Vector2 position = Vector2.Zero;
         Vector2 velocity = Vector2.Zero;
         public float turretRotation = 40f;
+        
+        //SoundEffect fireballSound;
+        //SoundEffectInstance fireballSoundInstance;
+
+        //public List<Fireball> fireballs = new List<Fireball>();
 
         Texture2D turret;
+        //Texture2D fireballTexture = null;
 
         AnimatedTexture turretAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
 
@@ -75,7 +84,11 @@ namespace ProjectCRYPT
             turretSprite.Add(turretAnimation, turret.Width / 2, turret.Height / 2);
             turretSprite.Pause();
 
+            /*fireballTexture = (content.Load<Texture2D>("fireball"));
 
+            fireballSound = content.Load<SoundEffect>("fireballSound");
+            fireballSoundInstance = fireballSound.CreateInstance();
+            */
 
         }
 
@@ -101,18 +114,24 @@ namespace ProjectCRYPT
             bool cellright = game.CellAtTileCoord(tx + 1, ty) != 0;
             bool celldown = game.CellAtTileCoord(tx, ty + 1) != 0;
             bool celldiag = game.CellAtTileCoord(tx + 1, ty + 1) != 0;
-
+            
             Vector2.Distance(GetPlayer.Position, turretSprite.position);
+
+            timerDelay -= deltaTime;
 
             if (Vector2.Distance(GetPlayer.Position, turretSprite.position) <= distance)
             {
-                Vector2 direction;
+                if (timerDelay <= 0)
+                {
+                    Cast();
+                    timerDelay = 0.75f;
+                }
 
-                direction = GetPlayer.Position - Position;
-                direction.Normalize();
-                                                
             }
 
+            UpdateFireballs(deltaTime);
+
+            
             if (this.velocity.Y > 0)
             {
                 if ((celldown && !cell) || (celldiag && !cellright && nx))
@@ -156,11 +175,56 @@ namespace ProjectCRYPT
 
         }
 
+        /*public void UpdateFireballs(float deltaTime)
+        {
+            foreach (Fireball fireball in fireballs)
+            {
+                fireball.position += fireball.velocity;
+                if (Vector2.Distance(fireball.position, turretSprite.position) > 500)
+                {
+                    fireball.isAlive = false;
+
+                }
+
+                fireball.Update(deltaTime);
+            }
+            for (int i = 0; i < fireballs.Count; i++)
+            {
+                if (!fireballs[i].isAlive)
+                {
+                    fireballs.RemoveAt(i);
+                    i--;
+                }
+
+            }
+        }
+
+        public void Cast()
+        {
+            Fireball newFireball = new Fireball(fireballTexture);
+            newFireball.velocity = new Vector2((float)Math.Cos(-rotation + 1.5708f), (float)Math.Sin(-rotation + 1.5708f)) * 1f;
+            newFireball.position = turretSprite.position + new Vector2(turret.Width / 2, turret.Height / 2) + newFireball.velocity * 5;
+            newFireball.isAlive = true;
+            newFireball.Load(game.Content);
+            fireballSoundInstance.Play();
+
+
+            if (fireballs.Count() < 200)
+            {
+                fireballs.Add(newFireball);
+            }
+        }*/
 
         public void Draw(SpriteBatch spriteBatch)
         {
             turretSprite.Draw(spriteBatch);
             turretAnimation.Rotation = turretRotation;
+
+            /*foreach (Fireball fireball in fireballs)
+            {
+
+                fireball.Draw(spriteBatch);
+            }*/
         }
     }
 }
