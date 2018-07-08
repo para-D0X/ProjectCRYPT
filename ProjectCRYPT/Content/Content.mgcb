@@ -211,3 +211,27 @@
 /processorParam:TextureFormat=Color
 /build:healthbar.png
 
+#begin zombiedeath.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:zombiedeath.wav
+
+#begin skeletondeath.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:skeletondeath.wav
+
+#begin playerhurt.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:playerhurt.wav
+
+#begin playerdeath.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:playerdeath.wav
+

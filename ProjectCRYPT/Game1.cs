@@ -2,14 +2,13 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 using MonoGame.Extended;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Graphics;
 using MonoGame.Extended.ViewportAdapters;
- 
-
 
 namespace ProjectCRYPT
 {
@@ -39,6 +38,20 @@ namespace ProjectCRYPT
 
         Texture2D splash = null;
         Texture2D healthBar = null;
+
+        SoundEffect zombieDeathSound;
+        SoundEffectInstance zombieDeathSoundInstance;
+
+        SoundEffect skeletonDeathSound;
+        SoundEffectInstance skeletonDeathSoundInstance;
+
+        SoundEffect playerHurtSound;
+        SoundEffectInstance playerHurtSoundInstance;
+
+        SoundEffect playerDeathSound;
+        SoundEffectInstance playerDeathSoundInstance;
+
+        Rectangle Endzone = new Rectangle(930, 910, 20, 20);
 
         bool PlayOnce = false;
         float Timer = 3;
@@ -107,7 +120,6 @@ namespace ProjectCRYPT
 
             base.Initialize();
             this.IsMouseVisible = true;
-
         }
 
 
@@ -177,6 +189,18 @@ namespace ProjectCRYPT
                 }
             }
 
+            zombieDeathSound = Content.Load<SoundEffect>("zombiedeath");
+            zombieDeathSoundInstance = zombieDeathSound.CreateInstance();
+
+            skeletonDeathSound = Content.Load<SoundEffect>("skeletondeath");
+            skeletonDeathSoundInstance = skeletonDeathSound.CreateInstance();
+
+            playerHurtSound = Content.Load<SoundEffect>("playerhurt");
+            playerHurtSoundInstance = playerHurtSound.CreateInstance();
+
+            playerDeathSound = Content.Load<SoundEffect>("playerdeath");
+            playerDeathSoundInstance = playerDeathSound.CreateInstance();
+
         }
 
         protected override void UnloadContent()
@@ -226,6 +250,9 @@ namespace ProjectCRYPT
                     UpdateLoseState(deltaTime);
                     break;
             }
+
+            zombieDeathSoundInstance.Volume = 0.3f;
+            skeletonDeathSoundInstance.Volume = 0.3f;
 
             base.Update(gameTime);
         }
@@ -307,6 +334,7 @@ namespace ProjectCRYPT
                     {
                         zombies.Remove(zombie);
                         fireball.isAlive = false;
+                        zombieDeathSoundInstance.Play();
                         break;
                     }
                 }
@@ -317,8 +345,24 @@ namespace ProjectCRYPT
                     {
                         skeletons.Remove(skeleton);
                         fireball.isAlive = false;
+                        skeletonDeathSoundInstance.Play();
                         break;
                     }
+                }
+            }
+
+            foreach (Coin coin in coins)
+            {
+                if (Vector2.Distance(coin.coinSprite.position, player.playerSprite.position) > 500)
+                {
+                    coin.isAlive = false;
+
+                }
+                if (IsColliding(coin.coinSprite.Bounds, player.playerSprite.Bounds) == true)
+                {
+                    coins.Remove(coin);
+                    coin.isAlive = false;
+                    break;
                 }
             }
 
@@ -337,7 +381,7 @@ namespace ProjectCRYPT
                 coin.Update(deltaTime);
             }
 
-            camera.Zoom = 3f;
+            camera.Zoom = 1f;
 
             camera.Position = player.Position - new Vector2(ScreenWidth / 2, ScreenHeight / 2);
 
@@ -359,8 +403,8 @@ namespace ProjectCRYPT
             {
                 if (IsColliding(player.Bounds, zombie.Bounds) == true && DamageTimer < 0)
                 {
-                                      
-                    //playerhurt.Play();
+
+                    playerHurtSoundInstance.Play();
                     DamageTimer = 1;
                     health -= 1;
                     break;                                     
@@ -403,6 +447,8 @@ namespace ProjectCRYPT
                 spriteBatch.Draw(healthBar, new Vector2(80 - i * 15, 20), Color.White);
             }
 
+            spriteBatch.DrawRectangle(Endzone, Color.Red, 4f);
+
             spriteBatch.End();
 
         }
@@ -416,7 +462,9 @@ namespace ProjectCRYPT
 
         private void DrawWinState(SpriteBatch spriteBatch)
         {
+            spriteBatch.Begin();
 
+            spriteBatch.End();
         }
         #endregion
 
@@ -428,7 +476,9 @@ namespace ProjectCRYPT
 
         private void DrawLoseState(SpriteBatch spriteBatch)
         {
+            spriteBatch.Begin();
 
+            spriteBatch.End();
         }
         #endregion
 
@@ -436,6 +486,7 @@ namespace ProjectCRYPT
         {
             if (health <= 0)
             {
+                playerDeathSoundInstance.Play();
                 GameState = STATE_LOSE;
             }
         }
