@@ -97,29 +97,6 @@ namespace ProjectCRYPT
 
         private void UpdateInput(float deltaTime)
         {
-            /*bool wasMovingLeft = velocity.X < 0;
-            bool wasMovingRight = velocity.X > 0;
-            bool wasMovingUp = velocity.Y < 0;
-            bool wasMovingDown = velocity.Y > 0;*/
-
-
-
-            //velocity.X = MathHelper.Clamp(velocity.X, -Game1.maxVelocity.X, Game1.maxVelocity.X);
-            // velocity.Y = MathHelper.Clamp(velocity.Y, -Game1.maxVelocity.Y, Game1.maxVelocity.Y);
-
-
-
-            /*if ((wasMovingLeft && (velocity.X > 0)) || (wasMovingRight && (velocity.X < 0)))
-            {
-                velocity.X = 0;
-                zombieSprite.Pause();
-            }
-            if ((wasMovingUp && (velocity.Y > 0)) || (wasMovingDown && (velocity.Y < 0)))
-            {
-                velocity.Y = 0;
-                zombieSprite.Pause();
-            }*/
-
             int tx = game.PixelToTile(skeletonSprite.position.X);
             int ty = game.PixelToTile(skeletonSprite.position.Y);
 
