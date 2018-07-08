@@ -25,6 +25,7 @@ namespace ProjectCRYPT
         List<Zombie> zombies = new List<Zombie>();
         List<Skeleton> skeletons = new List<Skeleton>();
         List<Coin> coins = new List<Coin>();
+        List<Turret> turrets = new List<Turret>();
 
         Camera2D camera = null;
         TiledMap map = null;
@@ -188,6 +189,22 @@ namespace ProjectCRYPT
                     }
                 }
             }
+            foreach (TiledMapObjectLayer layer in map.ObjectLayers)
+            {
+                if (layer.Name == "Turrets")
+                {
+                    foreach (TiledMapObject obj in layer.Objects)
+                    {
+                        Turret turret = new Turret(this);
+                        turret.Load(Content);
+                        turret.GetPlayer = player;
+                        turret.Position = new Vector2(obj.Position.X, obj.Position.Y);
+                        turrets.Add(turret);
+                    }
+                }
+            }
+
+
 
             zombieDeathSound = Content.Load<SoundEffect>("zombiedeath");
             zombieDeathSoundInstance = zombieDeathSound.CreateInstance();
@@ -369,9 +386,11 @@ namespace ProjectCRYPT
             foreach (Zombie zombie in zombies)
             {
                 zombie.Update(deltaTime);
-
             }
-
+            foreach (Turret turret in turrets)
+            {
+                turret.Update(deltaTime);
+            }
             foreach (Skeleton skeleton in skeletons)
             {
                 skeleton.Update(deltaTime);
