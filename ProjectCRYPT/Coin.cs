@@ -15,6 +15,11 @@ namespace ProjectCRYPT
         // keep a reference to the Game object to check for collisions on the map
         Game1 game = null;
 
+        Vector2 position = Vector2.Zero;
+        Vector2 offset = new Vector2(8, 8);
+
+        Texture2D coin;
+                
         public bool isAlive;
         
         public Vector2 Position
@@ -48,8 +53,8 @@ namespace ProjectCRYPT
         {
             AnimatedTexture animation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
             animation.Load(content, "coin", 1, 1);
-
-            coinSprite.Add(animation, 0, 1);
+            
+            coinSprite.Add(animation, 0, 0);
         }
         public void Update(float deltaTime)
         {

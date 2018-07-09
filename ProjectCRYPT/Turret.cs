@@ -20,8 +20,8 @@ namespace ProjectCRYPT
         Game1 game = null;
 
         float rotation = 0f;
-        float distance = 75;
-        float timerDelay = 0.75f;
+        float distance = 85;
+        float timerDelay = 0.60f;
 
         public Player GetPlayer { get; set; }
         public Bluefireball GetBluefireball { get; set; }
@@ -40,6 +40,11 @@ namespace ProjectCRYPT
         Texture2D bluefireballTexture = null;
 
         AnimatedTexture turretAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
+
+        public Rectangle Bounds
+        {
+            get { return turretSprite.Bounds; }
+        }
 
         public Vector2 Position
         {
@@ -117,7 +122,8 @@ namespace ProjectCRYPT
             bool celldiag = game.CellAtTileCoord(tx + 1, ty + 1) != 0;
             
             Vector2.Distance(GetPlayer.Position, turretSprite.position);
-
+            
+            fireballSoundInstance.Volume = 0.3f;
             timerDelay -= deltaTime;
 
             if (Vector2.Distance(GetPlayer.Position, turretSprite.position) <= distance)
