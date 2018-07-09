@@ -26,6 +26,7 @@ namespace ProjectCRYPT
         List<Skeleton> skeletons = new List<Skeleton>();
         List<Coin> coins = new List<Coin>();
         List<Turret> turrets = new List<Turret>();
+        List<Bluefireball> blueFireballs = new List<Bluefireball>();
 
         Camera2D camera = null;
         TiledMap map = null;
@@ -370,15 +371,40 @@ namespace ProjectCRYPT
 
             foreach (Coin coin in coins)
             {
-                if (Vector2.Distance(coin.coinSprite.position, player.playerSprite.position) > 500)
+                /*if (Vector2.Distance(coin.coinSprite.position, player.playerSprite.position) > 500)
                 {
                     coin.isAlive = false;
 
-                }
+                }*/
                 if (IsColliding(coin.coinSprite.Bounds, player.playerSprite.Bounds) == true)
                 {
                     coins.Remove(coin);
                     coin.isAlive = false;
+                    break;
+                }
+            }
+
+            foreach (Zombie zombie in zombies)
+            {
+                if (IsColliding(player.Bounds, zombie.Bounds) == true && DamageTimer < 0)
+                {
+
+                    playerHurtSoundInstance.Play();
+                    DamageTimer = 1;
+                    health -= 1;
+                    break;
+                }
+            }
+
+            foreach (Bluefireball bluefireball in blueFireballs)
+            {
+                if (IsColliding(bluefireball.bluefireballSprite.Bounds, player.playerSprite.Bounds) == true)
+                {
+                    blueFireballs.Remove(bluefireball);
+                    bluefireball.isAlive = false;
+                    playerHurtSoundInstance.Play();
+                    DamageTimer = 1;
+                    health -= 1;
                     break;
                 }
             }
@@ -408,27 +434,18 @@ namespace ProjectCRYPT
             mouse = Mouse.GetState();
             mousePosition = new Vector2(mouse.X, mouse.Y);
 
-            //Console.WriteLine(mousePosition);
 
             Console.WriteLine(ScreenWidth);
             Console.WriteLine(ScreenHeight);
 
-            if(zombies.Count == 0 && skeletons.Count == 0)
+            if(zombies.Count == 0 && skeletons.Count == 0 && turrets.Count == 0)
             {
                 //print "all enemies are dead, proceed to the exit"
             }
 
-            foreach (Zombie zombie in zombies)
-            {
-                if (IsColliding(player.Bounds, zombie.Bounds) == true && DamageTimer < 0)
-                {
 
-                    playerHurtSoundInstance.Play();
-                    DamageTimer = 1;
-                    health -= 1;
-                    break;                                     
-                }
-            }
+
+
             /*if (IsColliding(player.Bounds, Endzone) == true)
             {
                 GameState = STATE_WIN;
