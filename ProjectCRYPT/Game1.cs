@@ -460,6 +460,10 @@ namespace ProjectCRYPT
             {
                 coin.Draw(spriteBatch);
             }
+            foreach (Turret turret in turrets)
+            {
+                turret.Draw(spriteBatch);
+            }
 
             for (int i = 0; i < health; i++)
             {
