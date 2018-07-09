@@ -27,6 +27,11 @@ namespace ProjectCRYPT
         public Sprite bluefireballSprite = new Sprite();
         AnimatedTexture bluefireballAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
 
+        public Rectangle Bounds
+        {
+            get { return bluefireballSprite.Bounds; }
+        }
+
         public Bluefireball(Texture2D newTexture)
         {
             texture = newTexture;
