@@ -247,3 +247,15 @@
 /processorParam:TextureFormat=Color
 /build:fireball2.png
 
+#begin Metaruka - The End.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Metaruka - The End.ogg
+
+#begin turretDeath.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:turretDeath.wav
+

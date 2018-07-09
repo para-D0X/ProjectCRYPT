@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using MonoGame.Extended;
@@ -47,13 +48,18 @@ namespace ProjectCRYPT
         SoundEffect skeletonDeathSound;
         SoundEffectInstance skeletonDeathSoundInstance;
 
+        SoundEffect turretDeathSound;
+        SoundEffectInstance turretDeathSoundInstance;
+
         SoundEffect playerHurtSound;
         SoundEffectInstance playerHurtSoundInstance;
 
         SoundEffect playerDeathSound;
         SoundEffectInstance playerDeathSoundInstance;
 
-        Rectangle Endzone = new Rectangle(930, 910, 20, 20);
+        Song backgroundMusic;
+
+        Rectangle Endzone = new Rectangle(962, 942, 16, 16);
 
         bool PlayOnce = false;
         float Timer = 3;
@@ -219,6 +225,11 @@ namespace ProjectCRYPT
             playerDeathSound = Content.Load<SoundEffect>("playerdeath");
             playerDeathSoundInstance = playerDeathSound.CreateInstance();
 
+            turretDeathSound = Content.Load<SoundEffect>("turretDeath");
+            turretDeathSoundInstance = turretDeathSound.CreateInstance();
+
+            backgroundMusic = Content.Load<Song>("Metaruka - The End");
+
         }
 
         protected override void UnloadContent()
@@ -271,6 +282,7 @@ namespace ProjectCRYPT
 
             zombieDeathSoundInstance.Volume = 0.3f;
             skeletonDeathSoundInstance.Volume = 0.3f;
+            turretDeathSoundInstance.Volume = 0.3f;
 
             base.Update(gameTime);
         }
@@ -287,6 +299,9 @@ namespace ProjectCRYPT
             {
                 GameState = STATE_MENU;
             }
+
+            MediaPlayer.Play(backgroundMusic);
+            MediaPlayer.Volume = 0.2f;
 
         }
 
@@ -325,7 +340,7 @@ namespace ProjectCRYPT
         {
             spriteBatch.Begin();
 
-            spriteBatch.DrawString(arial, "Press Space to Start", new Vector2(ScreenWidth / 2, ScreenHeight / 2), Color.White);
+            spriteBatch.DrawString(arial, "Press Space to Start", new Vector2( 200, ScreenHeight / 2.5f), Color.White, 0f, new Vector2(0, 0), 3, SpriteEffects.None, 1);
 
             spriteBatch.End();
         }
@@ -367,15 +382,21 @@ namespace ProjectCRYPT
                         break;
                     }
                 }
+
+                foreach (Turret turret in turrets)
+                {
+                    if (IsColliding(fireball.fireballSprite.Bounds, turret.turretSprite.Bounds) == true)
+                    {
+                        turrets.Remove(turret);
+                        turret.isAlive = false;
+                        turretDeathSoundInstance.Play();
+                        break;
+                    }
+                }
             }
 
             foreach (Coin coin in coins)
             {
-                /*if (Vector2.Distance(coin.coinSprite.position, player.playerSprite.position) > 500)
-                {
-                    coin.isAlive = false;
-
-                }*/
                 if (IsColliding(coin.coinSprite.Bounds, player.playerSprite.Bounds) == true)
                 {
                     coins.Remove(coin);
@@ -388,7 +409,17 @@ namespace ProjectCRYPT
             {
                 if (IsColliding(player.Bounds, zombie.Bounds) == true && DamageTimer < 0)
                 {
+                    playerHurtSoundInstance.Play();
+                    DamageTimer = 1;
+                    health -= 1;
+                    break;
+                }
+            }
 
+            foreach (Skeleton skeleton in skeletons)
+            {
+                if (IsColliding(player.Bounds, skeleton.Bounds) == true && DamageTimer < 0) 
+                {
                     playerHurtSoundInstance.Play();
                     DamageTimer = 1;
                     health -= 1;
@@ -398,7 +429,7 @@ namespace ProjectCRYPT
 
             foreach (Bluefireball bluefireball in blueFireballs)
             {
-                if (IsColliding(bluefireball.bluefireballSprite.Bounds, player.playerSprite.Bounds) == true)
+                if (IsColliding(bluefireball.bluefireballSprite.Bounds, player.playerSprite.Bounds) == true && DamageTimer < 0)
                 {
                     blueFireballs.Remove(bluefireball);
                     bluefireball.isAlive = false;

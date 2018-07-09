@@ -106,8 +106,6 @@ namespace ProjectCRYPT
 
             fireballSound = content.Load<SoundEffect>("fireballSound");
             fireballSoundInstance = fireballSound.CreateInstance();
-
-
         }
 
         public void Update(float deltaTime)
