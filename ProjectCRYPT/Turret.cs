@@ -19,24 +19,24 @@ namespace ProjectCRYPT
 
         Game1 game = null;
 
-        //float rotation = 0f;
+        float rotation = 0f;
         float distance = 75;
-        //float timerDelay = 0.75f;
+        float timerDelay = 0.75f;
 
         public Player GetPlayer { get; set; }
-        public Fireball GetFireball { get; set; }
+        public Bluefireball GetBluefireball { get; set; }
         public bool isAlive;
         Vector2 position = Vector2.Zero;
         Vector2 velocity = Vector2.Zero;
         public float turretRotation = 40f;
-        
-        //SoundEffect fireballSound;
-        //SoundEffectInstance fireballSoundInstance;
+                
+        SoundEffect fireballSound;
+        SoundEffectInstance fireballSoundInstance;
 
-        //public List<Fireball> fireballs = new List<Fireball>();
+        public List<Bluefireball> bluefireballs = new List<Bluefireball>();
 
         Texture2D turret;
-        //Texture2D fireballTexture = null;
+        Texture2D bluefireballTexture = null;
 
         AnimatedTexture turretAnimation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
 
@@ -61,7 +61,7 @@ namespace ProjectCRYPT
 
             rot = (float)Math.Atan2((double)direction.Y, (double)direction.X);
 
-            rot += MathHelper.ToRadians(180);
+            rot += MathHelper.ToRadians(270);
 
             return rot;
         }
@@ -69,7 +69,7 @@ namespace ProjectCRYPT
         public Turret(Game1 game)
         {
             this.game = game;
-            Position = new Vector2(100, 0);
+            Position = new Vector2(50, 0);
             turretRotation = 40;
         }
 
@@ -84,11 +84,11 @@ namespace ProjectCRYPT
             turretSprite.Add(turretAnimation, turret.Width / 2, turret.Height / 2);
             turretSprite.Pause();
 
-            /*fireballTexture = (content.Load<Texture2D>("fireball"));
+            bluefireballTexture = (content.Load<Texture2D>("fireball2"));
 
             fireballSound = content.Load<SoundEffect>("fireballSound");
             fireballSoundInstance = fireballSound.CreateInstance();
-            */
+            
 
         }
 
@@ -103,7 +103,7 @@ namespace ProjectCRYPT
 
         private void UpdateInput(float deltaTime)
         {
-            /*int tx = game.PixelToTile(turretSprite.position.X);
+            int tx = game.PixelToTile(turretSprite.position.X);
             int ty = game.PixelToTile(turretSprite.position.Y);
 
             bool nx = (turretSprite.position.X) % Game1.tile != 0;
@@ -121,6 +121,7 @@ namespace ProjectCRYPT
 
             if (Vector2.Distance(GetPlayer.Position, turretSprite.position) <= distance)
             {
+                
                 if (timerDelay <= 0)
                 {
                     Cast();
@@ -129,7 +130,7 @@ namespace ProjectCRYPT
 
             }
 
-            UpdateFireballs(deltaTime);
+            UpdateBluefireballs(deltaTime);
 
             
             if (this.velocity.Y > 0)
@@ -171,60 +172,60 @@ namespace ProjectCRYPT
                     this.velocity.X = 0;
                     turretSprite.Pause();
                 }
-            }*/
+            }
 
         }
 
-        /*public void UpdateFireballs(float deltaTime)
+        public void UpdateBluefireballs(float deltaTime)
         {
-            foreach (Fireball fireball in fireballs)
+            foreach (Bluefireball bluefireball in bluefireballs)
             {
-                fireball.position += fireball.velocity;
-                if (Vector2.Distance(fireball.position, turretSprite.position) > 500)
+                bluefireball.position += bluefireball.velocity;
+                if (Vector2.Distance(bluefireball.position, turretSprite.position) > 500)
                 {
-                    fireball.isAlive = false;
+                    bluefireball.isAlive = false;
 
                 }
 
-                fireball.Update(deltaTime);
+                bluefireball.Update(deltaTime);
             }
-            for (int i = 0; i < fireballs.Count; i++)
+            for (int i = 0; i < bluefireballs.Count; i++)
             {
-                if (!fireballs[i].isAlive)
+                if (!bluefireballs[i].isAlive)
                 {
-                    fireballs.RemoveAt(i);
+                    bluefireballs.RemoveAt(i);
                     i--;
                 }
 
             }
         }
-
+        
         public void Cast()
         {
-            Fireball newFireball = new Fireball(fireballTexture);
-            newFireball.velocity = new Vector2((float)Math.Cos(-rotation + 1.5708f), (float)Math.Sin(-rotation + 1.5708f)) * 1f;
-            newFireball.position = turretSprite.position + new Vector2(turret.Width / 2, turret.Height / 2) + newFireball.velocity * 5;
-            newFireball.isAlive = true;
-            newFireball.Load(game.Content);
+            Bluefireball newBluefireball = new Bluefireball(bluefireballTexture);
+            newBluefireball.velocity = new Vector2((float)Math.Cos(-rotation + 1.5708f), (float)Math.Sin(-rotation + 1.5708f)) * 2f;
+            newBluefireball.position = turretSprite.position + new Vector2(turret.Width / 2, turret.Height / 2) + newBluefireball.velocity * 5;
+            newBluefireball.isAlive = true;
+            newBluefireball.Load(game.Content);
             fireballSoundInstance.Play();
 
 
-            if (fireballs.Count() < 200)
+            if (bluefireballs.Count() < 200)
             {
-                fireballs.Add(newFireball);
+                bluefireballs.Add(newBluefireball);
             }
-        }*/
+        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             turretSprite.Draw(spriteBatch);
             turretAnimation.Rotation = turretRotation;
 
-            /*foreach (Fireball fireball in fireballs)
+            foreach (Bluefireball bluefireball in bluefireballs)
             {
 
-                fireball.Draw(spriteBatch);
-            }*/
+                bluefireball.Draw(spriteBatch);
+            }
         }
     }
 }
