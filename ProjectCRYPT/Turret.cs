@@ -28,7 +28,8 @@ namespace ProjectCRYPT
         public bool isAlive;
         Vector2 position = Vector2.Zero;
         Vector2 velocity = Vector2.Zero;
-        public float turretRotation = 40f;
+        Vector2 offset = new Vector2(8, 8);
+        public float turretRotation = 0f;
                 
         SoundEffect fireballSound;
         SoundEffectInstance fireballSoundInstance;
@@ -70,7 +71,7 @@ namespace ProjectCRYPT
         {
             this.game = game;
             Position = new Vector2(50, 0);
-            turretRotation = 40;
+            turretRotation = 0f;
         }
 
         public void Load(ContentManager content)
@@ -121,7 +122,11 @@ namespace ProjectCRYPT
 
             if (Vector2.Distance(GetPlayer.Position, turretSprite.position) <= distance)
             {
-                
+                Vector2 direction = GetPlayer.playerSprite.position - turretSprite.position;
+
+                rotation = (float)Math.Atan2(direction.X, direction.Y);
+                turretAnimation.Rotation = -rotation;
+
                 if (timerDelay <= 0)
                 {
                     Cast();
