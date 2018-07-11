@@ -17,7 +17,7 @@ namespace ProjectCRYPT
         GraphicsDeviceManager graphics;
         public Sprite turretSprite = new Sprite();
 
-        Game1 game = null;
+        Game1 game = null; 
 
         float rotation = 0f;
         float distance = 85;

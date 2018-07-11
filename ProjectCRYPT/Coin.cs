@@ -16,7 +16,7 @@ namespace ProjectCRYPT
         Game1 game = null;
 
         Vector2 position = Vector2.Zero;
-        Vector2 offset = new Vector2(8, 8);
+        Vector2 offset =  Vector2.Zero;
 
         Texture2D coin;
                
@@ -54,8 +54,8 @@ namespace ProjectCRYPT
             coin = content.Load<Texture2D>("coin");
             AnimatedTexture animation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
             animation.Load(content, "coin", 1, 1);
-            animation.Origin = new Vector2(coin.Width / 2, coin.Height / 2);
-            coinSprite.Add(animation, coin.Width / 2, coin.Height / 2);
+            animation.Origin = new Vector2(0, 0);
+            coinSprite.Add(animation, -coin.Width / 2, -coin.Height / 2);
             coinSprite.Pause();
         }
         public void Update(float deltaTime)
