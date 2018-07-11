@@ -19,7 +19,7 @@ namespace ProjectCRYPT
         Vector2 offset = new Vector2(8, 8);
 
         Texture2D coin;
-                
+               
         public bool isAlive;
         
         public Vector2 Position
@@ -51,10 +51,12 @@ namespace ProjectCRYPT
         }
         public void Load(ContentManager content)
         {
+            coin = content.Load<Texture2D>("coin");
             AnimatedTexture animation = new AnimatedTexture(Vector2.Zero, 0, 1, 1);
             animation.Load(content, "coin", 1, 1);
-            
-            coinSprite.Add(animation, 0, 0);
+            animation.Origin = new Vector2(coin.Width / 2, coin.Height / 2);
+            coinSprite.Add(animation, coin.Width / 2, coin.Height / 2);
+            coinSprite.Pause();
         }
         public void Update(float deltaTime)
         {
