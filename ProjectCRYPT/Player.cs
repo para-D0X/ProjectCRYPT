@@ -13,7 +13,7 @@ using ParticleEffects;
 
 namespace ProjectCRYPT
 {
-    class Player
+    public class Player
     {
         Game1 game = null;
 
@@ -191,7 +191,7 @@ namespace ProjectCRYPT
 
         public void Cast()
         {
-            Fireball newFireball = new Fireball(fireballTexture);
+            Fireball newFireball = new Fireball(fireballTexture, game);
             newFireball.velocity = new Vector2((float)Math.Cos(-rotation + 1.5708f), (float)Math.Sin(-rotation + 1.5708f)) * 2f ;
             newFireball.position = playerSprite.position + new Vector2 (playerTexture.Width / 2, playerTexture.Height / 2) + newFireball.velocity * 5 ;
             newFireball.isAlive = true;

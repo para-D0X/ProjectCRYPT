@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace ProjectCRYPT
 {
-    class Turret
+    public class Turret
     {
         GraphicsDeviceManager graphics;
         public Sprite turretSprite = new Sprite();

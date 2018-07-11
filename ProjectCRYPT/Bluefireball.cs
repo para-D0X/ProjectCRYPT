@@ -11,7 +11,7 @@ using ParticleEffects;
 
 namespace ProjectCRYPT
 {
-    class Bluefireball
+    public class Bluefireball
     {
         public Texture2D texture;
 
@@ -40,9 +40,7 @@ namespace ProjectCRYPT
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //spriteBatch.Draw(texture, position, null, Color.White, 0f, origin, 1f, SpriteEffects.None, 0);
             bluefireballSprite.Draw(spriteBatch);
-
             fireEmitter.Draw(spriteBatch);
         }
 

@@ -57,15 +57,20 @@ namespace ProjectCRYPT
         SoundEffect playerDeathSound;
         SoundEffectInstance playerDeathSoundInstance;
 
+        SoundEffect coinPickupSound;
+        SoundEffectInstance coinPickupSoundInstance;
+
         Song backgroundMusic;
 
-        Rectangle Endzone = new Rectangle(962, 942, 16, 16);
+        Rectangle Endzone = new Rectangle(978, 958, 16, 16);
+        bool levelClear = false;
 
         bool PlayOnce = false;
         float Timer = 3;
         float DamageTimer = 1;
 
         int health = 15;
+        int score = 0;
 
         public static int tile = 16;
         public static float meter = tile;
@@ -228,6 +233,9 @@ namespace ProjectCRYPT
             turretDeathSound = Content.Load<SoundEffect>("turretDeath");
             turretDeathSoundInstance = turretDeathSound.CreateInstance();
 
+            coinPickupSound = Content.Load<SoundEffect>("coinSound");
+            coinPickupSoundInstance = coinPickupSound.CreateInstance();
+
             backgroundMusic = Content.Load<Song>("Metaruka - The End");
 
         }
@@ -283,6 +291,8 @@ namespace ProjectCRYPT
             zombieDeathSoundInstance.Volume = 0.3f;
             skeletonDeathSoundInstance.Volume = 0.3f;
             turretDeathSoundInstance.Volume = 0.3f;
+            coinPickupSoundInstance.Volume = 0.2f;
+            playerHurtSoundInstance.Volume = 0.2f;
 
             base.Update(gameTime);
         }
@@ -301,7 +311,8 @@ namespace ProjectCRYPT
             }
 
             MediaPlayer.Play(backgroundMusic);
-            MediaPlayer.Volume = 0.2f;
+            //MediaPlayer.Volume = 0.2f;
+            MediaPlayer.Volume = 0f;
 
         }
 
@@ -368,6 +379,7 @@ namespace ProjectCRYPT
                         zombies.Remove(zombie);
                         fireball.isAlive = false;
                         zombieDeathSoundInstance.Play();
+                        score += 1;
                         break;
                     }
                 }
@@ -379,6 +391,7 @@ namespace ProjectCRYPT
                         skeletons.Remove(skeleton);
                         fireball.isAlive = false;
                         skeletonDeathSoundInstance.Play();
+                        score += 1;
                         break;
                     }
                 }
@@ -389,7 +402,9 @@ namespace ProjectCRYPT
                     {
                         turrets.Remove(turret);
                         turret.isAlive = false;
+                        fireball.isAlive = false;
                         turretDeathSoundInstance.Play();
+                        score += 1;
                         break;
                     }
                 }
@@ -401,6 +416,8 @@ namespace ProjectCRYPT
                 {
                     coins.Remove(coin);
                     coin.isAlive = false;
+                    coinPickupSoundInstance.Play();
+                    score += 1;
                     break;
                 }
             }
@@ -426,17 +443,21 @@ namespace ProjectCRYPT
                     break;
                 }
             }
-
-            foreach (Bluefireball bluefireball in blueFireballs)
+               
+            foreach (Turret turret in turrets)
             {
-                if (IsColliding(bluefireball.bluefireballSprite.Bounds, player.playerSprite.Bounds) == true && DamageTimer < 0)
+                foreach (Bluefireball bluefireball in turret.bluefireballs)
                 {
-                    blueFireballs.Remove(bluefireball);
-                    bluefireball.isAlive = false;
-                    playerHurtSoundInstance.Play();
-                    DamageTimer = 1;
-                    health -= 1;
-                    break;
+                    if (IsColliding(bluefireball.Bounds, player.Bounds) == true && DamageTimer < 0) 
+                    {
+                        Console.WriteLine("fireball is colliding with player");
+                        blueFireballs.Remove(bluefireball);
+                        bluefireball.isAlive = false;
+                        playerHurtSoundInstance.Play();
+                        DamageTimer = 1;
+                        health -= 1;
+                        return;
+                    }
                 }
             }
 
@@ -457,7 +478,7 @@ namespace ProjectCRYPT
                 coin.Update(deltaTime);
             }
 
-            camera.Zoom = 1f;
+            camera.Zoom = 2f;
 
             camera.Position = player.Position - new Vector2(ScreenWidth / 2, ScreenHeight / 2);
 
@@ -469,18 +490,16 @@ namespace ProjectCRYPT
             Console.WriteLine(ScreenWidth);
             Console.WriteLine(ScreenHeight);
 
-            if(zombies.Count == 0 && skeletons.Count == 0 && turrets.Count == 0)
-            {
-                //print "all enemies are dead, proceed to the exit"
-            }
 
 
 
 
-            /*if (IsColliding(player.Bounds, Endzone) == true)
+
+            if (IsColliding(player.Bounds, Endzone) == true && levelClear == true)
             {
                 GameState = STATE_WIN;
-            }*/
+            }
+
 
         }
 
@@ -513,12 +532,41 @@ namespace ProjectCRYPT
                 turret.Draw(spriteBatch);
             }
 
+            spriteBatch.DrawRectangle(Endzone, Color.Red, 4f);
+
+            spriteBatch.End();
+
+            spriteBatch.GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
+
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+
             for (int i = 0; i < health; i++)
             {
-                spriteBatch.Draw(healthBar, new Vector2(80 - i * 15, 20), Color.White);
+                spriteBatch.Draw(healthBar, new Vector2(20 + healthBar.Width * i, 20), Color.White);
             }
 
-            spriteBatch.DrawRectangle(Endzone, Color.Red, 4f);
+            spriteBatch.DrawString(arial, "Score:", new Vector2(90, ScreenHeight - 40), Color.White, 0f, new Vector2(0, 0), 1, SpriteEffects.None, 1);
+
+            spriteBatch.DrawString(arial, score.ToString(), new Vector2(150, ScreenHeight - 40), Color.White);
+
+
+
+            if (IsColliding(player.Bounds, Endzone) == true && levelClear == false)
+            {
+                spriteBatch.DrawString(arial, "You cannot leave until the level is clear", new Vector2(250, ScreenHeight - 40), Color.White, 0f, new Vector2(0, 0), 1.5f, SpriteEffects.None, 1);         
+            }
+
+            if (zombies.Count == 0 && skeletons.Count == 0 && turrets.Count == 0)
+            {
+                spriteBatch.DrawString(arial, "All Enemies are Dead!! Proceed to the EXIT!", new Vector2(200, 50), Color.White, 0f, new Vector2(0, 0), 3, SpriteEffects.None, 1);
+                levelClear = true;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.P) == true)
+            {
+                spriteBatch.DrawString(arial, "All Enemies are Dead!! Proceed to the EXIT!", new Vector2(150, 50), Color.White, 0f, new Vector2(0, 0), 1.5f, SpriteEffects.None, 1);
+                levelClear = true;
+            }
 
             spriteBatch.End();
 
