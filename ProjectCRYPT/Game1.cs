@@ -41,6 +41,10 @@ namespace ProjectCRYPT
 
         Texture2D splash = null;
         Texture2D healthBar = null;
+        Texture2D graveyard = null;
+        Texture2D deathText = null;
+        Texture2D treasure = null;
+        Texture2D treasureText = null;
 
         SoundEffect zombieDeathSound;
         SoundEffectInstance zombieDeathSoundInstance;
@@ -71,6 +75,7 @@ namespace ProjectCRYPT
 
         int health = 15;
         int score = 0;
+        int playOnce = 1;
 
         public static int tile = 16;
         public static float meter = tile;
@@ -154,6 +159,11 @@ namespace ProjectCRYPT
             mapRenderer = new TiledMapRenderer(GraphicsDevice);
 
             arial = Content.Load<SpriteFont>("Arial");
+
+            graveyard = Content.Load<Texture2D>("graveyard");
+            deathText = Content.Load<Texture2D>("deathtext");
+            treasure = Content.Load<Texture2D>("treasurepile");
+            treasureText = Content.Load<Texture2D>("treasuretext");
 
             foreach (TiledMapTileLayer layer in map.TileLayers)
             {
@@ -240,6 +250,7 @@ namespace ProjectCRYPT
 
         }
 
+
         protected override void UnloadContent()
         {
 
@@ -311,9 +322,7 @@ namespace ProjectCRYPT
             }
 
             MediaPlayer.Play(backgroundMusic);
-            //MediaPlayer.Volume = 0.2f;
-            MediaPlayer.Volume = 0f;
-
+            MediaPlayer.Volume = 0.1f;
         }
 
         private void DrawSplashState(SpriteBatch spriteBatch)
@@ -564,8 +573,16 @@ namespace ProjectCRYPT
 
             if (Keyboard.GetState().IsKeyDown(Keys.P) == true)
             {
-                spriteBatch.DrawString(arial, "All Enemies are Dead!! Proceed to the EXIT!", new Vector2(150, 50), Color.White, 0f, new Vector2(0, 0), 1.5f, SpriteEffects.None, 1);
-                levelClear = true;
+                //spriteBatch.DrawString(arial, "All Enemies are Dead!! Proceed to the EXIT!", new Vector2(150, 50), Color.White, 0f, new Vector2(0, 0), 1.5f, SpriteEffects.None, 1);
+                //levelClear = true;
+                GameState = STATE_WIN;
+
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.O) == true)
+            {
+                spriteBatch.DrawString(arial, "OOF", new Vector2(ScreenWidth / 2 - 100, ScreenHeight / 2), Color.White, 0f, new Vector2(0, 0), 4, SpriteEffects.None, 1);
+                health -= 1;
             }
 
             spriteBatch.End();
@@ -583,6 +600,9 @@ namespace ProjectCRYPT
         {
             spriteBatch.Begin();
 
+            spriteBatch.Draw(treasureText, new Vector2(115, 30), Color.White);        
+            spriteBatch.Draw(treasure, new Vector2(275, 150), Color.White);
+
             spriteBatch.End();
         }
         #endregion
@@ -597,15 +617,19 @@ namespace ProjectCRYPT
         {
             spriteBatch.Begin();
 
+            spriteBatch.Draw(graveyard, new Vector2(-100, -100), Color.White);
+            spriteBatch.Draw(deathText, new Vector2(200, 75), Color.White); 
+
             spriteBatch.End();
         }
         #endregion
 
         private void CheckHealth()
         {
-            if (health <= 0)
+            if (health <= 0 && playOnce == 1)
             {
                 playerDeathSoundInstance.Play();
+                playOnce = 0;
                 GameState = STATE_LOSE;
             }
         }
