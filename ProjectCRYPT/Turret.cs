@@ -213,7 +213,7 @@ namespace ProjectCRYPT
         
         public void Cast()
         {
-            Bluefireball newBluefireball = new Bluefireball(bluefireballTexture);
+            Bluefireball newBluefireball = new Bluefireball(bluefireballTexture, game);
             newBluefireball.velocity = new Vector2((float)Math.Cos(-rotation + 1.5708f), (float)Math.Sin(-rotation + 1.5708f)) * 2f;
             newBluefireball.position = turretSprite.position + new Vector2(turret.Width / 2, turret.Height / 2) + newBluefireball.velocity * 5;
             newBluefireball.isAlive = true;
