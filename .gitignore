@@ -52,3 +52,5 @@ ProjectCRYPT/Game1.cs
 *.mgcontent
 *.mgcontent
 *.mgcontent
+ProjectCRYPT/Content/obj/Windows/fireball.mgcontent
+ProjectCRYPT/Content/obj/Windows/.mgcontent
