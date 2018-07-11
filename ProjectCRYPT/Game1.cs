@@ -250,6 +250,7 @@ namespace ProjectCRYPT
 
         }
 
+
         protected override void UnloadContent()
         {
 
@@ -321,9 +322,7 @@ namespace ProjectCRYPT
             }
 
             MediaPlayer.Play(backgroundMusic);
-            //MediaPlayer.Volume = 0.2f;
-            MediaPlayer.Volume = 0f;
-
+            MediaPlayer.Volume = 0.1f;
         }
 
         private void DrawSplashState(SpriteBatch spriteBatch)
